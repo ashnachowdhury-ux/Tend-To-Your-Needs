@@ -1032,7 +1032,6 @@ function scheduleGCal(pi){
 }
 
 showScreen('s-splash');
-initSupabase();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
@@ -1193,6 +1192,9 @@ removeRitual = async function(text){
     } catch(e){ console.warn('Could not delete ritual:', e); }
   }
 };
+
+// Init after SDK and all functions are defined
+initSupabase();
 </script>
 </body>
 </html>
