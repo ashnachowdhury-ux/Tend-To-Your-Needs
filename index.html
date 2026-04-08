@@ -12,38 +12,42 @@
   --terra:#C4674A;--terra-light:#F5EAE5;--terra-mid:#DFA090;
   --sand:#D4C5A9;--sand-light:#F7F3EC;--brown:#6B5744;--brown-light:#EDE5DC;
   --text:#2C2016;--text2:#6B5744;--text3:#9C8872;--border:#E0D5C5;--border2:#C8B99E;
+  --gold:#9C7A3A;--gold-light:#F5EED8;--gold-mid:#D4B87A;
 }
 html,body{min-height:100%;background:var(--cream);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--text)}
 .app{max-width:520px;margin:0 auto;min-height:100vh}
 .screen{display:none}.screen.active{display:block}
 
+/* SPLASH */
 .splash{padding:48px 28px 40px;text-align:center;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .splash-leaves{display:flex;justify-content:center;align-items:center;gap:5px;margin-bottom:28px}
-.splash-leaf{border-radius:50%;background:var(--sage-mid)}
+.splash-leaf{border-radius:50%}
 .splash-wordmark{font-size:32px;font-weight:500;color:var(--text);letter-spacing:-.5px;margin-bottom:8px;line-height:1.2}
 .splash-tagline{font-size:16px;color:var(--text3);margin-bottom:20px}
 .splash-desc{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:36px;max-width:300px}
 .google-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 26px;font-size:14px;font-weight:500;border:1px solid var(--border2);border-radius:12px;background:#fff;color:var(--text);cursor:pointer;transition:all .15s;margin-bottom:10px}
-.google-btn:hover{background:var(--sand-light);border-color:var(--sand)}
+.google-btn:hover{background:var(--sand-light)}
 .splash-note{font-size:12px;color:var(--text3)}
 
-.header{padding:20px 20px 16px;background:var(--cream);border-bottom:1px solid var(--border);text-align:center}
-.wordmark{font-size:20px;font-weight:500;color:var(--text);letter-spacing:-.3px;margin-bottom:3px;display:flex;align-items:center;justify-content:center;gap:8px}
+/* HEADER + NAV */
+.header{padding:18px 20px 14px;background:var(--cream);border-bottom:1px solid var(--border);text-align:center}
+.wordmark{font-size:18px;font-weight:500;color:var(--text);letter-spacing:-.3px;margin-bottom:2px;display:flex;align-items:center;justify-content:center;gap:8px}
 .wm-leaves{display:flex;align-items:center;gap:3px}
 .wm-leaf{border-radius:50%;background:var(--sage-mid)}
-.tagline{font-size:12px;color:var(--text3);letter-spacing:.01em}
-.nav{display:flex;padding:0 16px;background:var(--cream);border-bottom:1px solid var(--border);overflow-x:auto}
-.nav-btn{padding:11px 13px;font-size:13px;font-weight:500;border:none;background:none;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s}
+.tagline{font-size:11px;color:var(--text3)}
+.nav{display:flex;padding:0 8px;background:var(--cream);border-bottom:1px solid var(--border);overflow-x:auto}
+.nav-btn{padding:10px 11px;font-size:12px;font-weight:500;border:none;background:none;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .15s}
 .nav-btn.active{color:var(--text);border-bottom-color:var(--terra)}
 .nav-btn:hover:not(.active){color:var(--text2)}
 
-.pad{padding:24px 20px 48px}
-.heading{font-size:19px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.3}
-.subtext{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:22px}
+/* COMMON */
+.pad{padding:22px 20px 48px}
+.heading{font-size:18px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.3}
+.subtext{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px}
 .section-label{font-size:11px;font-weight:500;letter-spacing:.07em;color:var(--text3);text-transform:uppercase;margin-bottom:10px}
 .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px 20px}
 .divider{height:1px;background:var(--border);margin:18px 0}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;font-size:13px;font-weight:500;border:1px solid var(--border2);border-radius:10px;background:transparent;color:var(--text);cursor:pointer;transition:all .15s}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;font-size:13px;font-weight:500;border:1px solid var(--border2);border-radius:10px;background:transparent;color:var(--text);cursor:pointer;transition:all .15s}
 .btn:hover{background:var(--brown-light)}
 .btn-terra{background:var(--terra);color:#fff;border-color:var(--terra)}
 .btn-terra:hover{opacity:.9}
@@ -58,28 +62,25 @@ html,body{min-height:100%;background:var(--cream);font-family:-apple-system,Blin
 .empty-state{text-align:center;padding:48px 20px}
 .empty-state p{font-size:14px;color:var(--text3);margin-bottom:18px;line-height:1.6}
 
+/* DISCOVER */
 .discover-choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.choice-card{border:1px solid var(--border);border-radius:16px;padding:20px 16px;cursor:pointer;transition:all .2s;background:#fff;text-align:center}
+.choice-card{border:1px solid var(--border);border-radius:16px;padding:18px 14px;cursor:pointer;transition:all .2s;background:#fff;text-align:center}
 .choice-card:hover{border-color:var(--terra);background:var(--terra-light);transform:translateY(-2px)}
-.choice-icon{width:40px;height:40px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
-.choice-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
-.choice-desc{font-size:12px;color:var(--text2);line-height:1.5}
-
-.feelings-section{margin-bottom:20px}
+.choice-icon{width:36px;height:36px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
+.choice-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.choice-desc{font-size:11px;color:var(--text2);line-height:1.5}
 .feelings-group-label{font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--text3);text-transform:uppercase;margin-bottom:8px;margin-top:14px}
 .feeling-pills{display:flex;flex-wrap:wrap;gap:8px}
-.feeling-needs{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.positive-banner{background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:14px 16px;margin-top:14px}
+.pb-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.pb-body{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px}
 
-/* positive feeling banner */
-.positive-banner{background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:16px 18px;margin-top:16px}
-.pb-title{font-size:15px;font-weight:500;color:var(--text);margin-bottom:5px}
-.pb-body{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px}
-
-.slider-row{margin-bottom:15px}
-.slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}
+/* LIFE AREAS */
+.slider-row{margin-bottom:14px}
+.slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
 .area-name-s{font-size:13px;font-weight:500;color:var(--text);display:flex;align-items:center;gap:7px}
 input[type=range]{width:100%;cursor:pointer;accent-color:var(--terra)}
-.result-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;margin-bottom:7px;background:#fff}
+.result-item{display:flex;align-items:center;gap:10px;padding:9px 13px;border:1px solid var(--border);border-radius:10px;margin-bottom:7px;background:#fff}
 .result-item.flagged{border-color:var(--terra);background:var(--terra-light)}
 .result-item.thriving{border-color:var(--sage);background:var(--sage-light)}
 .result-name-r{font-size:13px;font-weight:500;color:var(--text);flex:1}
@@ -89,19 +90,16 @@ input[type=range]{width:100%;cursor:pointer;accent-color:var(--terra)}
 .rbar{height:6px;border-radius:3px}
 .rscore{font-size:13px;font-weight:500;min-width:28px;text-align:right;flex-shrink:0}
 
-.need-card{border:1px solid var(--border);border-radius:12px;padding:13px 16px;margin-bottom:9px;cursor:pointer;transition:all .15s;background:#fff}
+/* NEED BRIDGE */
+.need-card{border:1px solid var(--border);border-radius:12px;padding:12px 15px;margin-bottom:8px;cursor:pointer;transition:all .15s;background:#fff}
 .need-card:hover{border-color:var(--border2);background:var(--sand-light)}
 .need-card.selected{border-color:var(--terra);background:var(--terra-light)}
 .need-card.selected .nc-title{color:var(--terra)}
 .nc-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:2px}
 .nc-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:2px}
 .nc-body{font-size:12px;color:var(--text3);font-style:italic;line-height:1.4}
-.or-div{display:flex;align-items:center;gap:10px;margin:14px 0}
-.or-div span{font-size:12px;color:var(--text3)}
-.or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border)}
 textarea{width:100%;padding:10px 12px;font-size:13px;border:1px solid var(--border2);border-radius:10px;background:#fff;color:var(--text);line-height:1.6;resize:none;font-family:inherit}
 textarea:focus{outline:none;border-color:var(--terra)}
-
 .q-bubble{background:var(--cream2);border-radius:12px;border-bottom-left-radius:3px;padding:11px 14px;font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;max-width:88%}
 .a-bubble{background:var(--terra-light);border-radius:12px;border-bottom-right-radius:3px;padding:10px 14px;font-size:13px;color:var(--brown);line-height:1.6;margin-bottom:10px;max-width:88%;margin-left:auto;text-align:right}
 .typing{display:flex;gap:4px;align-items:center;padding:10px 14px;background:var(--cream2);border-radius:12px;border-bottom-left-radius:3px;width:fit-content;margin-bottom:10px}
@@ -109,41 +107,66 @@ textarea:focus{outline:none;border-color:var(--terra)}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes tb{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
-
-.confirmed-need{background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:16px 18px;margin-bottom:16px}
-.cn-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin-bottom:4px}
-.cn-need{font-size:22px;font-weight:500;color:var(--text);margin-bottom:3px}
+.confirmed-need{background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:15px 17px;margin-bottom:14px}
+.cn-label{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--sage);margin-bottom:3px}
+.cn-need{font-size:21px;font-weight:500;color:var(--text);margin-bottom:3px}
 .cn-desc{font-size:13px;color:var(--text2);line-height:1.5}
 
-.activity-card{border:1px solid var(--border);border-radius:12px;padding:13px 16px;margin-bottom:9px;cursor:pointer;transition:all .15s;background:#fff;display:flex;gap:12px;align-items:flex-start}
+/* PLAN */
+.activity-card{border:1px solid var(--border);border-radius:12px;padding:12px 15px;margin-bottom:8px;cursor:pointer;transition:all .15s;background:#fff;display:flex;gap:11px;align-items:flex-start}
 .activity-card:hover{border-color:var(--border2);background:var(--sand-light)}
 .activity-card.selected{border-color:var(--sage);background:var(--sage-light)}
 .activity-card.selected .ac-title{color:var(--sage)}
 .ac-check{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .15s}
 .activity-card.selected .ac-check{background:var(--sage);border-color:var(--sage)}
 .ac-title{font-size:13px;font-weight:500;color:var(--text);line-height:1.4}
-.gcal-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;font-size:13px;font-weight:500;border:none;border-radius:11px;background:#4285F4;color:#fff;cursor:pointer;transition:opacity .15s}
+.ac-context{font-size:11px;color:var(--text3);margin-top:3px;font-style:italic}
+.ac-ritual-tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500;background:var(--gold-light);color:var(--gold);border:1px solid var(--gold-mid);margin-top:4px}
+.gcal-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;font-size:13px;font-weight:500;border:none;border-radius:11px;background:#4285F4;color:#fff;cursor:pointer;transition:opacity .15s}
 .gcal-btn:hover{opacity:.9}
 
-.plan-entry{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px}
+/* SAVED */
+.plan-entry{background:#fff;border:1px solid var(--border);border-radius:14px;padding:15px 17px;margin-bottom:12px}
 .pe-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
 .pe-need{font-size:15px;font-weight:500;color:var(--text)}
 .pe-date{font-size:12px;color:var(--text3)}
 .pe-area{font-size:12px;color:var(--text2);margin-bottom:10px}
 .pe-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
-.pe-pill{padding:4px 12px;background:var(--sage-light);color:var(--sage);border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--sage-mid)}
-.cal-strip{border-top:1px solid var(--border);padding-top:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.pe-pill{padding:4px 11px;background:var(--sage-light);color:var(--sage);border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--sage-mid)}
+.cal-strip{border-top:1px solid var(--border);padding-top:11px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .cal-note{font-size:12px;color:var(--text3)}
 
-.step-dots{display:flex;gap:7px;justify-content:center;margin-bottom:20px}
+/* STEP DOTS */
+.step-dots{display:flex;gap:7px;justify-content:center;margin-bottom:18px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--border2);transition:all .2s}
 .dot.active{background:var(--terra)}
 .dot.done{background:var(--sage)}
 
-@media(max-width:400px){
-  .discover-choice{grid-template-columns:1fr}
-  .splash-wordmark{font-size:26px}
-}
+/* RITUALS TAB */
+.rituals-heading{font-size:20px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.3}
+.rituals-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:22px}
+.my-rituals-section{margin-bottom:24px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.my-ritual-list{display:flex;flex-wrap:wrap;gap:7px;min-height:36px}
+.my-ritual{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid}
+.my-ritual .remove{cursor:pointer;opacity:.45;font-size:10px;transition:opacity .15s;border:none;background:none;padding:0;color:inherit;line-height:1}
+.my-ritual .remove:hover{opacity:1}
+.empty-rituals{font-size:13px;color:var(--text3);font-style:italic;padding:6px 0}
+.called-section{background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:16px;padding:16px 18px;margin-bottom:22px}
+.called-heading{font-size:13px;font-weight:500;color:var(--gold);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.called-sub{font-size:12px;color:var(--brown);margin-bottom:10px;line-height:1.5;opacity:.8}
+.called-list{display:flex;flex-wrap:wrap;gap:7px}
+.category-section{margin-bottom:22px}
+.cat-header{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.cat-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-name{font-size:13px;font-weight:500;color:var(--text)}
+.cat-desc{font-size:12px;color:var(--text3);margin-bottom:9px;padding-left:34px;line-height:1.5}
+.cat-rituals{display:flex;flex-wrap:wrap;gap:6px}
+.suggestion-pill{display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid;cursor:pointer;transition:all .15s;user-select:none}
+.suggestion-pill:hover{transform:scale(1.03)}
+.suggestion-pill.added{opacity:.38;cursor:default;transform:none}
+
+@media(max-width:400px){.discover-choice{grid-template-columns:1fr}.splash-wordmark{font-size:26px}}
 </style>
 </head>
 <body>
@@ -154,14 +177,15 @@ textarea:focus{outline:none;border-color:var(--terra)}
   <div class="splash">
     <div class="splash-leaves">
       <div class="splash-leaf" style="width:7px;height:7px;background:var(--sand)"></div>
-      <div class="splash-leaf" style="width:9px;height:9px"></div>
+      <div class="splash-leaf" style="width:9px;height:9px;background:var(--sage-mid)"></div>
       <div class="splash-leaf" style="width:13px;height:13px;background:var(--sage)"></div>
-      <div class="splash-leaf" style="width:9px;height:9px"></div>
+      <div class="splash-leaf" style="width:9px;height:9px;background:var(--sage-mid)"></div>
       <div class="splash-leaf" style="width:7px;height:7px;background:var(--sand)"></div>
     </div>
     <div class="splash-wordmark">Tend to Your Needs</div>
     <div class="splash-tagline">A simple path to self-care</div>
-    <p class="splash-desc">Understand what you need. Make a gentle plan. Let it find a place in your day.</p>
+    <p class="splash-desc" style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:6px">Something brought you here today.</p>
+    <p class="splash-desc">Whatever it is — we're here. Let's find out what you need.</p>
     <button class="google-btn" onclick="enterApp()">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
@@ -192,27 +216,28 @@ textarea:focus{outline:none;border-color:var(--terra)}
     <button class="nav-btn active" onclick="showTab('discover',this)">Discover</button>
     <button class="nav-btn" onclick="showTab('need',this)">My need</button>
     <button class="nav-btn" onclick="showTab('plan',this)">Plan</button>
+    <button class="nav-btn" onclick="showTab('rituals',this)">Rituals</button>
     <button class="nav-btn" onclick="showTab('saved',this)">Saved</button>
   </div>
 
   <!-- DISCOVER -->
   <div id="tab-discover" class="pad">
-    <p class="heading">How are you today?</p>
-    <p class="subtext">Choose where to start. Both paths lead somewhere useful.</p>
+    <p class="heading">Begin here.</p>
+    <p class="subtext">A moment to turn inward. Choose what calls to you.</p>
     <div class="discover-choice">
       <div class="choice-card" onclick="startWheel()">
         <div class="choice-icon" style="background:var(--terra-light)">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="var(--terra)" stroke-width="1.5"/><circle cx="10" cy="10" r="4" stroke="var(--terra)" stroke-width="1.5"/><circle cx="10" cy="10" r="1.5" fill="var(--terra)"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="var(--terra)" stroke-width="1.5"/><circle cx="10" cy="10" r="4" stroke="var(--terra)" stroke-width="1.5"/><circle cx="10" cy="10" r="1.5" fill="var(--terra)"/></svg>
         </div>
         <div class="choice-title">Start with a feeling</div>
-        <div class="choice-desc">Trace an emotion to what you need</div>
+        <div class="choice-desc">Trace what you're feeling to what you need</div>
       </div>
       <div class="choice-card" onclick="startLife()">
         <div class="choice-icon" style="background:var(--sage-light)">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/><rect x="11" y="2" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/><rect x="2" y="11" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/><rect x="11" y="11" width="7" height="7" rx="2" stroke="var(--sage)" stroke-width="1.5"/></svg>
         </div>
         <div class="choice-title">Start with your life</div>
-        <div class="choice-desc">Rate fulfilment across life areas</div>
+        <div class="choice-desc">Survey the areas of your life right now</div>
       </div>
     </div>
     <div id="discover-tool"></div>
@@ -220,308 +245,296 @@ textarea:focus{outline:none;border-color:var(--terra)}
 
   <!-- MY NEED -->
   <div id="tab-need" class="pad" style="display:none">
-    <div class="step-dots" id="need-dots">
-      <div class="dot done"></div><div class="dot active"></div><div class="dot"></div>
-    </div>
+    <div class="step-dots" id="need-dots"><div class="dot done"></div><div class="dot active"></div><div class="dot"></div></div>
     <div id="need-content">
-      <div class="empty-state">
-        <p>Start in Discover to find what you need right now.</p>
-        <button class="btn btn-terra" onclick="showTab('discover',document.querySelector('.nav-btn'))">Go to Discover →</button>
-      </div>
+      <div class="empty-state"><p>Begin in Discover. We'll help you hear what's asking to be tended.</p>
+        <button class="btn btn-terra" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button></div>
     </div>
   </div>
 
   <!-- PLAN -->
   <div id="tab-plan" class="pad" style="display:none">
     <div id="plan-content">
-      <div class="empty-state">
-        <p>Once you've named a need, we'll help you make a plan.</p>
-        <button class="btn btn-sage" onclick="showTab('discover',document.querySelector('.nav-btn'))">Start exploring →</button>
+      <div class="empty-state"><p>Once you've named what's asking to be tended, your path forward will appear here.</p>
+        <button class="btn btn-sage" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button></div>
+    </div>
+  </div>
+
+  <!-- RITUALS -->
+  <div id="tab-rituals" class="pad" style="display:none">
+    <p class="rituals-heading">Your rituals</p>
+    <p class="rituals-sub">The practices you return to. The ones that restore, ground, and move you. We weave these into your plans.</p>
+
+    <div class="my-rituals-section">
+      <div class="section-head">
+        <span class="section-label">Rituals you tend to</span>
+        <span style="font-size:12px;color:var(--text3)" id="ritual-count">0 gathered</span>
+      </div>
+      <div class="my-ritual-list" id="my-ritual-list">
+        <span class="empty-rituals">Nothing gathered yet — explore below.</span>
       </div>
     </div>
+
+    <div class="called-section">
+      <div class="called-heading">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.2 3.8H10L7.8 5.5L8.6 8.5L6 6.8L3.4 8.5L4.2 5.5L2 3.8H4.8L6 1Z" fill="var(--gold)"/></svg>
+        Rituals you're called toward
+      </div>
+      <p class="called-sub">Practices you feel drawn to, even if not yet part of your life.</p>
+      <div class="called-list" id="called-list">
+        <span style="font-size:13px;color:var(--brown);opacity:.6;font-style:italic">None gathered yet.</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="section-label" style="margin-bottom:16px">Explore & gather</p>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:16px;font-style:italic">Tap to gather a ritual · hold to mark as called toward</p>
+    <div id="ritual-categories"></div>
   </div>
 
   <!-- SAVED -->
   <div id="tab-saved" class="pad" style="display:none">
-    <p class="heading">Your saved plans</p>
-    <p class="subtext">A record of what you've tended to.</p>
+    <p class="heading">What you've tended to.</p>
+    <p class="subtext">A living record of the care you've brought to yourself.</p>
     <div id="saved-list"></div>
     <div id="saved-empty" class="empty-state">
-      <p>Nothing saved yet. We're here when you're ready.</p>
-      <button class="btn btn-sage" onclick="showTab('discover',document.querySelector('.nav-btn'))">Start exploring →</button>
+      <p style="font-size:15px;font-weight:500;color:var(--text);margin-bottom:8px">Nothing gathered yet.</p>
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px">When you tend to a need, it will be held here — a gentle record of the care you've brought to yourself.</p>
+      <button class="btn btn-sage" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button>
     </div>
   </div>
 </div>
 
 </div>
 <script>
-const POSITIVE_FEELINGS = [
-  {f:'Grateful',     c:'#EAF0E8', tc:'#2A4A2A'},
-  {f:'Content',      c:'#F5F0E8', tc:'#5C4020'},
-  {f:'Calm',         c:'#E8EFF5', tc:'#1A3A5C'},
-  {f:'Energised',    c:'#EAF0E8', tc:'#2A4A2A'},
-  {f:'Hopeful',      c:'#EDE8F5', tc:'#2A1A5C'},
-  {f:'Grounded',     c:'#F5EAD8', tc:'#5C3010'},
-  {f:'Joyful',       c:'#F5F0E8', tc:'#5C4020'},
-  {f:'Connected',    c:'#E8EFF5', tc:'#1A3A5C'},
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const POSITIVE_FEELINGS=[
+  {f:'Grateful',c:'#EAF0E8',tc:'#2A4A2A'},{f:'Content',c:'#F5F0E8',tc:'#5C4020'},
+  {f:'Calm',c:'#E8EFF5',tc:'#1A3A5C'},{f:'Energised',c:'#EAF0E8',tc:'#2A4A2A'},
+  {f:'Hopeful',c:'#EDE8F5',tc:'#2A1A5C'},{f:'Grounded',c:'#F5EAD8',tc:'#5C3010'},
+  {f:'Joyful',c:'#F5F0E8',tc:'#5C4020'},{f:'Connected',c:'#E8EFF5',tc:'#1A3A5C'},
 ];
 
-const DIFFICULT_FEELINGS = [
-  {f:'Anxious',      c:'#F5EAD8', tc:'#7A4A1A', needs:['Safety','Clarity','Reassurance'],       nd:['A wish for things to feel more settled and predictable.','To see the situation clearly rather than through fog.','To hear — from yourself or someone else — that things will be okay.'],      nb:['Tension that won\'t switch off even when things are fine.','Thoughts going in circles without landing anywhere.','Eases briefly when someone checks in, then creeps back.']},
-  {f:'Lonely',       c:'#E8EFF5', tc:'#1A3A5C', needs:['Connection','Belonging','Being seen'],   nd:['Genuine closeness with people — not just being in contact.','A sense of being part of something — a group, a friendship, a world.','Someone really getting who you are, not just the surface.'],          nb:['People around you but still feeling alone in some fundamental way.','An outsider even in familiar company.','Conversations that stay shallow.']},
-  {f:'Irritable',    c:'#F5E8E8', tc:'#5C1A1A', needs:['Rest','Respect','Space'],                nd:['Real recovery — not scrolling, just actual stopping.','Your contributions and presence mattering to others.','Room to breathe and be yourself without demands.'],                          nb:['Running on empty but keep pushing anyway.','Feeling dismissed or overlooked.','Everything feels too close, too loud, too much.']},
-  {f:'Sad',          c:'#EDE8F5', tc:'#2A1A5C', needs:['Comfort','Understanding','Meaning'],     nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like for you.','A sense that this difficulty means or leads to something.'],                  nb:['A heaviness asking to be held rather than fixed.','Feeling alone with your experience.','A quiet emptiness that sits underneath everything.']},
-  {f:'Overwhelmed',  c:'#F5EDE8', tc:'#5C2A1A', needs:['Support','Simplicity','Rest'],           nd:['Someone to share the weight with — not to fix it, just to help carry it.','Less on your plate — permission to let some things go.','Time to genuinely recover, not just pause.'],nb:['The cup is overflowing. Everything is too much at once.','Too many things pulling you in different directions.','No end in sight.']},
-  {f:'Numb',         c:'#EEEEED', tc:'#3A3A30', needs:['Stimulation','Joy','Purpose'],           nd:['Something that genuinely engages you — not just passes time.','A moment of real delight, however small.','A reason that makes things feel worth doing.'],                          nb:['Flat. Cut off. Going through the motions.','Can\'t remember the last thing that felt genuinely good.','Days passing without a sense of why any of it matters.']},
-  {f:'Restless',     c:'#EAF0E8', tc:'#2A4A2A', needs:['Creativity','Movement','Freedom'],       nd:['Making or expressing something — getting what\'s inside you out.','Your body wanting to be used, stretched, taken outside.','Room to move in your own direction, on your own terms.'],    nb:['Energy with nowhere to go — it builds up inside.','Itching for something but unsure exactly what.','Hemmed in by routine or obligation.']},
-  {f:'Scared',       c:'#F5E8F0', tc:'#5C1A3A', needs:['Safety','Predictability','Trust'],       nd:['The ground feeling solid beneath you — the floor won\'t drop out.','Knowing roughly what\'s coming and having a plan for it.','People or situations you can genuinely rely on.'],       nb:['A felt sense of threat that won\'t settle down.','Small changes feel disproportionately threatening.','Hard to let your guard down even when things are okay.']},
-  {f:'Frustrated',   c:'#F5EAD8', tc:'#7A3A10', needs:['Progress','Autonomy','Understanding'],   nd:['A sense that things are actually moving forward.','Real say over what you do and how you do it.','Someone getting why this matters so much to you.'],                            nb:['Blocked. Things aren\'t moving the way you need them to.','Managed rather than trusted. Freedom shrinking.','Feeling unseen or misread by those around you.']},
-  {f:'Disconnected', c:'#EEEEED', tc:'#3A3A30', needs:['Belonging','Presence','Warmth'],         nd:['A sense of being part of something — a group, a tribe, a family.','Being fully here, in your body, in this moment.','Genuine human warmth — felt, not just present.'],               nb:['Present in body but far from others or yourself.','Going through the motions of connection without feeling it.','A glass wall between you and everything around you.']},
+const DIFFICULT_FEELINGS=[
+  {f:'Anxious',c:'#F5EAD8',tc:'#7A4A1A',needs:['Safety','Clarity','Reassurance'],nd:['A wish for things to feel more settled and predictable.','To see the situation clearly rather than through fog.','To hear that things will be okay.'],nb:['Tension that won\'t switch off.','Thoughts going in circles.','Eases briefly when someone checks in.']},
+  {f:'Lonely',c:'#E8EFF5',tc:'#1A3A5C',needs:['Connection','Belonging','Being seen'],nd:['Genuine closeness — not just being in contact.','A sense of being part of something.','Someone really getting who you are.'],nb:['People around but still feeling alone.','An outsider in familiar company.','Conversations that stay shallow.']},
+  {f:'Irritable',c:'#F5E8E8',tc:'#5C1A1A',needs:['Rest','Respect','Space'],nd:['Real recovery — not scrolling, just actual stopping.','Your contributions mattering to others.','Room to breathe without demands.'],nb:['Running on empty but keep pushing.','Feeling dismissed or overlooked.','Everything feels too loud, too much.']},
+  {f:'Sad',c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Understanding','Meaning'],nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like.','A sense that this difficulty means something.'],nb:['A heaviness asking to be held.','Feeling alone with your experience.','A quiet emptiness underneath.']},
+  {f:'Overwhelmed',c:'#F5EDE8',tc:'#5C2A1A',needs:['Support','Simplicity','Rest'],nd:['Someone to share the weight with.','Less on your plate — permission to let go.','Time to genuinely recover.'],nb:['The cup is overflowing.','Too many things pulling at once.','No end in sight.']},
+  {f:'Numb',c:'#EEEEED',tc:'#3A3A30',needs:['Stimulation','Joy','Purpose'],nd:['Something that genuinely engages you.','A moment of real delight, however small.','A reason that makes things feel worth doing.'],nb:['Flat. Cut off. Going through motions.','Can\'t remember the last thing that felt good.','Days passing without a sense of why.']},
+  {f:'Restless',c:'#EAF0E8',tc:'#2A4A2A',needs:['Creativity','Movement','Freedom'],nd:['Making or expressing something.','Your body wanting to be used and stretched.','Room to move in your own direction.'],nb:['Energy with nowhere to go.','Itching for something but unsure what.','Hemmed in by routine or obligation.']},
+  {f:'Scared',c:'#F5E8F0',tc:'#5C1A3A',needs:['Safety','Predictability','Trust'],nd:['The ground feeling solid beneath you.','Knowing roughly what\'s coming.','People or situations you can rely on.'],nb:['A felt sense of threat.','Small changes feel too big.','Hard to let your guard down.']},
+  {f:'Frustrated',c:'#F5EAD8',tc:'#7A3A10',needs:['Progress','Autonomy','Understanding'],nd:['A sense that things are actually moving.','Real say over what you do.','Someone getting why this matters.'],nb:['Blocked. Things not moving.','Managed rather than trusted.','Feeling unseen or misread.']},
+  {f:'Disconnected',c:'#EEEEED',tc:'#3A3A30',needs:['Belonging','Presence','Warmth'],nd:['A sense of being part of something.','Being fully here, in this moment.','Genuine human warmth — felt, not just present.'],nb:['Present in body but far from others.','Going through motions of connection.','A glass wall between you and everything.']},
 ];
 
 const AREAS=[
-  {name:'Health & body',       color:'#EAF0E8',stroke:'#7A9E7E',needs:['Rest','Nourishment','Movement','Care'],          nd:['Permission to stop — not productive rest, just actual stopping.','Being properly fed — physically, emotionally, sensorially.','Your body wanting to be used, stretched, taken outside.','Attending to yourself with the same care you give others.'],                 nb:['Running on empty but keep pushing anyway.','Meals rushed or skipped. A depletion beyond tiredness.','Stiff, sluggish, something pent up inside.','Small health things keep getting deprioritised. You come last.']},
-  {name:'Work & purpose',      color:'#EDE8F5',stroke:'#7A6EA0',needs:['Purpose','Autonomy','Recognition','Contribution'],nd:['Feeling like what you do matters beyond the task itself.','Real say over how, when and what you work on.','Your effort and contribution being seen and acknowledged.','Knowing your work is genuinely useful to someone.'],                         nb:['Going through the motions. Can\'t connect work to anything larger.','Managed rather than trusted. Freedom to think shrinking.','Work disappearing into the machine without notice.','Unclear who benefits from what you do — or if anyone does.']},
-  {name:'Relationships',       color:'#E8EFF5',stroke:'#6A8EA0',needs:['Connection','Being seen','Belonging','Intimacy'], nd:['Genuine closeness — not just being in contact with people.','Someone really getting who you are, not just the surface.','A sense of being part of something — a group, a tribe, a family.','Real depth — emotional, physical, or both.'],                      nb:['People around but still alone in some fundamental way.','Conversations stay shallow. You keep the real stuff to yourself.','An outsider even in familiar company.','Warmth but not depth. Or distance where there used to be closeness.']},
-  {name:'Rest & play',         color:'#F5F0E8',stroke:'#A09060',needs:['Rest','Play','Spaciousness','Delight'],           nd:['Real restoration — not scrolling, not passive consumption.','Doing something just for the joy of it — no output, no purpose.','Unscheduled time that belongs to no one, not even you.','Small moments of genuine pleasure and aliveness.'],                   nb:['Chronically tired in a way sleep doesn\'t fix.','Can\'t remember the last time you did something just for fun.','Calendar full. Even downtime has been colonised.','Days pass without a single moment that felt good to be in.']},
-  {name:'Money & security',    color:'#FAEEDA',stroke:'#A07040',needs:['Safety','Stability','Sufficiency','Agency'],      nd:['A felt sense that you\'ll be okay — the floor won\'t drop out.','Predictability — knowing roughly what\'s coming and having a plan.','Having enough — and being able to actually feel that you do.','Real control over your financial situation — able to make choices.'],   nb:['A low-level vigilance that doesn\'t switch off.','Things feel precarious. Small changes disproportionately threatening.','Might have enough but can\'t feel it. Fear of not-enough runs the show.','Trapped by money rather than supported by it.']},
-  {name:'Home & environment',  color:'#EAF0E8',stroke:'#6A9060',needs:['Comfort','Order','Beauty','Rootedness'],          nd:['A space that feels physically safe and restorative to be in.','Enough structure in your surroundings to feel clear-headed.','Surroundings that nourish the senses rather than deplete them.','A sense of belonging to a place — of being home somewhere.'],           nb:['Home doesn\'t feel like a refuge. Can\'t fully relax there.','Clutter or chaos affecting how you feel inside.','Environment feels grey or neglected. Nothing delights the eye.','Transient even in a place you\'ve lived in for years.']},
-  {name:'Creativity & growth', color:'#EDE8F5',stroke:'#7A6EA0',needs:['Creativity','Challenge','Learning','Expression'], nd:['Making something — expressing what\'s inside you into the world.','Being stretched — working at the edge of your current capability.','Taking in new ideas and letting them change how you think.','Being able to show who you really are — through work, art or presence.'],  nb:['Restlessness that comes from not creating. Things build up.','Too easy or too routine. You\'re not growing and you can feel it.','Going through motions without anything genuinely new entering.','Feeling unseen or muted. The real you doesn\'t have enough outlets.']},
-  {name:'Inner life & meaning',color:'#F5E8F0',stroke:'#A06080',needs:['Meaning','Stillness','Integrity','Hope'],         nd:['A sense that your life is oriented toward something that matters.','Space to be with yourself — without noise, tasks or performance.','Living in alignment with your actual values, not expected ones.','A felt sense that things can be different — the future is open.'],       nb:['Busy but empty. The why behind everything has gone thin.','Never alone with yourself. The inner life has been crowded out.','A gap between who you are inside and how you\'re showing up.','Things feel fixed. Hard to imagine them being meaningfully better.']},
+  {name:'Health & body',color:'#EAF0E8',stroke:'#7A9E7E',needs:['Rest','Nourishment','Movement','Care'],nd:['Permission to stop — actual stopping.','Being properly fed — physically, emotionally.','Your body wanting to be used and stretched.','Attending to yourself as you would a friend.']},
+  {name:'Work & purpose',color:'#EDE8F5',stroke:'#7A6EA0',needs:['Purpose','Autonomy','Recognition','Contribution'],nd:['Feeling like what you do matters.','Real say over how and when you work.','Your effort being seen and acknowledged.','Knowing your work is useful to someone.']},
+  {name:'Relationships',color:'#E8EFF5',stroke:'#6A8EA0',needs:['Connection','Being seen','Belonging','Intimacy'],nd:['Genuine closeness — not just contact.','Someone really getting who you are.','A sense of being part of something.','Real depth — emotional or physical.']},
+  {name:'Rest & play',color:'#F5F0E8',stroke:'#A09060',needs:['Rest','Play','Spaciousness','Delight'],nd:['Real restoration — not scrolling.','Doing something just for joy — no output.','Unscheduled time that belongs to you.','Small moments of genuine pleasure.']},
+  {name:'Money & security',color:'#FAEEDA',stroke:'#A07040',needs:['Safety','Stability','Sufficiency','Agency'],nd:['A felt sense the floor won\'t drop out.','Predictability — knowing what\'s coming.','Having enough — and being able to feel it.','Real control over your situation.']},
+  {name:'Home & environment',color:'#EAF0E8',stroke:'#6A9060',needs:['Comfort','Order','Beauty','Rootedness'],nd:['A space that feels restorative to be in.','Enough structure to feel clear-headed.','Surroundings that nourish the senses.','A sense of belonging to a place.']},
+  {name:'Creativity & growth',color:'#EDE8F5',stroke:'#7A6EA0',needs:['Creativity','Challenge','Learning','Expression'],nd:['Making something from what\'s inside you.','Being stretched at your edge.','New ideas changing how you think.','Showing who you really are.']},
+  {name:'Inner life & meaning',color:'#F5E8F0',stroke:'#A06080',needs:['Meaning','Stillness','Integrity','Hope'],nd:['Life oriented toward what matters.','Space to be with yourself.','Living aligned with your actual values.','A felt sense the future is open.']},
+];
+
+const RITUAL_CATEGORIES=[
+  {name:'Movement & body',color:'#EAF0E8',stroke:'#7A9E7E',tc:'#2A4A2A',desc:'Rituals that move, ground, and inhabit the body.',rituals:['A slow walk without destination','Swimming','Morning stretching','Running','Yoga or movement practice','Dancing alone','Cold water in the morning','Long walks in nature','Cycling']},
+  {name:'Stillness & solitude',color:'#EDE8F5',stroke:'#7A6EA0',tc:'#2A1A5C',desc:'Rituals of quiet, reflection, and being with yourself.',rituals:['Sitting in silence before the day begins','Meditation','Journaling','Reading slowly','Sitting outside without a phone','Watching the light change','Prayer or contemplative practice']},
+  {name:'Nourishment & warmth',color:'#F5EAD8',stroke:'#A07040',tc:'#5C3010',desc:'Rituals of feeding, warmth, and tending to the body.',rituals:['Making tea or coffee slowly and with care','Cooking from scratch','An unhurried meal — sitting down for it','A long bath or shower','Baking','Making something warm to drink at night']},
+  {name:'Making & creating',color:'#FAEEDA',stroke:'#9C7A3A',tc:'#5C3A10',desc:'Rituals of expression, craft, and bringing things into being.',rituals:['Drawing or sketching','Writing freely — not for anyone','Making music','Knitting or making with hands','Photography','Pottery or working with clay','Painting','Building or making things']},
+  {name:'Connection & presence',color:'#E8EFF5',stroke:'#6A8EA0',tc:'#1A3A5C',desc:'Rituals of being with others — fully, not just nearby.',rituals:['A long call with someone I love','Sharing a meal with someone','Writing letters','Being present with a child or animal','Time with a close friend, unhurried','Community or group gathering']},
+  {name:'Rest & restoration',color:'#F5F0E8',stroke:'#A09060',tc:'#5C4020',desc:'Rituals that restore without requiring anything of you.',rituals:['An afternoon nap without guilt','Watching something comforting','Lying still and doing nothing','Being in bed early with a book','Sitting in sunlight','Listening to music with full attention']},
+  {name:'Tending & order',color:'#EAF3DE',stroke:'#5A8A4A',tc:'#1A4A10',desc:'Rituals of care for your space and what\'s around you.',rituals:['Tidying one space slowly','Tending to plants or a garden','A morning or evening routine held with intention','Arranging flowers or objects with care','Caring for an animal','Preparing a space before beginning work']},
 ];
 
 const ACTIVITIES={
-  'Safety':       ['5-4-3-2-1 grounding — name what you can sense right now','Make one small space feel safe and settled','Slow exhale breathing — breathe in for 4 counts, out for 7','Write your worries down, then gently close the notebook','Make something warm to drink and hold it with both hands'],
-  'Connection':   ['Message someone you\'ve been meaning to reach out to','Plan something simple with a person you trust','Write a letter — you don\'t have to send it','Sit somewhere with gentle human presence around you'],
-  'Rest':         ['Take 20 minutes with no agenda and no screen','Say no to one thing on your list today','Go to bed 30 minutes earlier tonight','Sit outside and allow yourself to do nothing'],
-  'Purpose':      ['Write down three things that genuinely matter to you','Spend an hour on a project that\'s entirely yours','Read something that reminds you why you care','Do one thing today that aligns with your values'],
-  'Autonomy':     ['Spend an hour entirely on your own terms','Make one small decision freely today','Create something with no audience in mind','Reclaim one part of your day as yours'],
-  'Creativity':   ['Make something without worrying how it turns out','Sketch, write, cook or build — just begin','Spend time with something that genuinely inspires you','Give yourself one hour of unstructured making'],
-  'Meaning':      ['Sit quietly and ask: what actually matters to me?','Write about a time you felt most alive','Do one thing today that connects to something larger','Spend time with someone whose values you admire'],
-  'Belonging':    ['Reach out to a group or community you\'ve been absent from','Do something small to contribute to someone else\'s day','Spend time somewhere you feel at home','Write about where and with whom you feel most yourself'],
-  'Progress':     ['Break one stuck thing into the smallest possible next step','Acknowledge something you\'ve moved forward this week','Clear one small thing that\'s been waiting','Tell someone about what you\'re working toward'],
-  'default':      ['Take a slow walk outside without your phone','Write freely for 10 minutes without stopping','Rest without guilt — allow yourself to simply be','Do one genuinely kind thing for yourself today','Reach out to someone who makes you feel at ease'],
+  'Safety':[{t:'5-4-3-2-1 grounding — name what you can sense right now',c:'Brings your nervous system back to the present'},{t:'Make one small space feel safe and settled',c:'Small acts of order signal safety to the body'},{t:'Breathe in for 4 counts, out for 7 — repeat three times',c:'Extended exhale activates your calming response'},{t:'Write your worries down, then gently close the notebook',c:'Externalising them creates a little distance'},{t:'Make something warm to drink and hold it with both hands',c:'Warmth and weight are physically regulating'}],
+  'Clarity':[{t:'Write what you actually know vs what you\'re assuming',c:'Separates real information from anxious projection'},{t:'Talk one thing through with someone you trust',c:'Saying it out loud often makes it clearer'},{t:'List the three most important things — nothing else',c:'Clarity often comes from reducing, not adding'},{t:'Write the question you\'re really trying to answer',c:'The question itself often becomes clearer than the answer'}],
+  'Reassurance':[{t:'Write yourself a note: "this has been hard, and I\'m doing okay"',c:'The reassurance you seek can come from you'},{t:'Call or message someone who tends to steady you',c:'A voice that knows you can help regulate your system'},{t:'List three times you\'ve navigated something difficult',c:'Evidence that you have resources'},{t:'Place a hand on your chest and take three slow breaths',c:'A small act of self-compassion'}],
+  'Connection':[{t:'Message one person you\'ve been meaning to reach out to',c:'Even a short message reopens a closed door'},{t:'Plan something simple with someone you trust',c:'Shared experience is the fastest route to connection'},{t:'Write a letter to someone you miss, even if you don\'t send it',c:'The act of reaching out matters'},{t:'Tell someone one true thing about how you\'re doing',c:'Real connection starts with a real exchange'}],
+  'Belonging':[{t:'Reach out to a group or community you\'ve drifted from',c:'Belonging often just needs a small re-entry'},{t:'Do one thing that contributes to someone else\'s day',c:'Giving creates a felt sense of being part of something'},{t:'Go somewhere you feel at home',c:'Remind yourself where you belong'},{t:'Share something you\'re genuinely interested in with another person',c:'Being known for what you love is a form of belonging'}],
+  'Being seen':[{t:'Tell one person something real about what\'s going on',c:'Being seen requires letting someone look'},{t:'Share something you\'ve made, thought or noticed',c:'Showing your inner world invites real seeing'},{t:'Spend time with someone who asks good questions',c:'Some people have the gift of making us visible'}],
+  'Intimacy':[{t:'Have one conversation today where you go a little deeper',c:'Intimacy is built in small increments'},{t:'Share something vulnerable — a fear, a hope, a regret',c:'Intimacy requires risk'},{t:'Ask someone how they\'re really doing, and mean it',c:'Intimacy goes both ways'}],
+  'Rest':[{t:'Take 20 minutes with no agenda and no screen',c:'Not productive rest — just actual stopping'},{t:'Say no to one thing on your list today',c:'Rest is also what you don\'t do'},{t:'Go to bed 30 minutes earlier tonight',c:'One of the highest-return things you can do'},{t:'Give yourself permission to be unproductive for one hour',c:'The guilt is the thing to tend to, not the rest'}],
+  'Nourishment':[{t:'Eat one proper, unhurried meal today — sit down for it',c:'Eating slowly is the first act of nourishment'},{t:'Drink a full glass of water right now',c:'Dehydration mimics depletion and low mood'},{t:'Cook something simple from scratch',c:'Preparing food for yourself is an act of care'},{t:'Notice what your body is asking for and give it that',c:'Your body knows before your mind does'}],
+  'Movement':[{t:'Take a walk outside — no destination, no podcast',c:'Unstructured movement is the most restorative kind'},{t:'Stretch slowly for 10 minutes, following what feels tight',c:'Your body knows where it needs attention'},{t:'Dance to one song',c:'Joyful movement metabolises stress differently'},{t:'Go outside and walk slightly faster than comfortable',c:'Elevating your heart rate shifts your mental state quickly'}],
+  'Care':[{t:'Do one health thing you\'ve been putting off',c:'Small acts of maintenance are acts of care'},{t:'Have a bath or long shower — make it deliberate',c:'Rituals of care send a message to your nervous system'},{t:'Make your sleep environment slightly more comfortable',c:'The place you rest deserves attention'}],
+  'Purpose':[{t:'Write down three things that genuinely matter to you',c:'Purpose starts with honest inventory'},{t:'Spend one hour on a project that is entirely yours',c:'Something made outside obligation carries purpose'},{t:'Do one thing that connects to something larger',c:'Purpose is found in contribution, not completion'}],
+  'Autonomy':[{t:'Spend one hour entirely on your own terms',c:'Real autonomy means choosing without justifying'},{t:'Make one decision freely today — something just for you',c:'Small acts of self-determination rebuild the muscle'},{t:'Say no to something that isn\'t yours to carry',c:'Every no to the wrong thing is a yes to yourself'}],
+  'Recognition':[{t:'Acknowledge something you\'ve done well this week',c:'Recognition can start with yourself'},{t:'Share a piece of work or thinking you\'re proud of',c:'Letting people see your efforts invites recognition'},{t:'Tell someone what you\'ve been working on',c:'People can\'t recognise what they can\'t see'}],
+  'Contribution':[{t:'Do one thing today that makes someone else\'s day easier',c:'Contribution is felt most in small, direct acts'},{t:'Share a skill, resource or piece of knowledge',c:'Giving what you have is contribution in its purest form'},{t:'Tell someone how they\'ve helped you',c:'Letting people know they mattered completes the loop'}],
+  'Play':[{t:'Do one thing today just for the enjoyment of it',c:'Play has no goal. That\'s the point'},{t:'Make something silly — a doodle, a voice note, a bad poem',c:'Play is most itself when it doesn\'t take itself seriously'},{t:'Spend time with someone who makes you laugh',c:'Laughter is play\'s most direct expression'}],
+  'Spaciousness':[{t:'Block out one evening and protect it',c:'Spaciousness is made, not found'},{t:'Say no to the next optional commitment',c:'Every unnecessary yes steals space'},{t:'Leave one hour tomorrow completely unscheduled',c:'White space is not wasted space'}],
+  'Delight':[{t:'Notice three beautiful things today — really pause for them',c:'Delight is often available — we just don\'t stop for it'},{t:'Cook or make something that smells and tastes wonderful',c:'The senses are the most direct route to delight'},{t:'Give someone something — a message, a coffee, a compliment',c:'Giving generates its own form of delight'}],
+  'Stability':[{t:'Write a simple plan for the next three days',c:'A small horizon feels manageable when a larger one doesn\'t'},{t:'Identify one thing you can control today and do it',c:'Stability is built from small acts of agency'},{t:'Write down what\'s actually solid right now',c:'Instability feels total but rarely is'}],
+  'Sufficiency':[{t:'Write a list of what you actually have — not what you lack',c:'Sufficiency is a perspective as much as a fact'},{t:'Notice one way your needs are being met right now',c:'The mind gravitates toward scarcity — this corrects it'},{t:'Do one thing that costs nothing and feels genuinely good',c:'Pleasure outside of spending is a form of sufficiency'}],
+  'Agency':[{t:'Make one practical decision you\'ve been putting off',c:'Agency is exercised, not felt — action comes first'},{t:'Ask for what you need directly — once, clearly',c:'Agency includes asking'},{t:'Change one thing in your environment that\'s been bothering you',c:'Small environmental wins restore a sense of control'}],
+  'Comfort':[{t:'Make your immediate physical environment as comfortable as possible',c:'Comfort starts with the body\'s surroundings'},{t:'Watch or read something that feels safe and familiar',c:'The known is comforting when the world feels hard'},{t:'Allow yourself to feel what you\'re feeling without trying to fix it',c:'Comfort is sometimes just the absence of pressure to be different'}],
+  'Order':[{t:'Spend 15 minutes on one small area of chaos — just one',c:'Order compounds quickly when you start'},{t:'Write a simple list for tomorrow — nothing more than five things',c:'A clear list is a small act of order'},{t:'Put three things back where they belong',c:'Restoration of small order is immediately satisfying'}],
+  'Beauty':[{t:'Arrange flowers, plants or objects in your space',c:'Beauty is often just intention applied to what\'s already there'},{t:'Go somewhere visually nourishing',c:'The eyes need feeding'},{t:'Notice something beautiful today you would normally walk past',c:'Beauty is everywhere — it requires a different pace to find it'}],
+  'Rootedness':[{t:'Visit a place that feels like yours',c:'Rootedness is held in places as much as people'},{t:'Spend time with someone who has known you a long time',c:'Being known over time is a form of rootedness'},{t:'Cook a recipe that connects you to somewhere or someone',c:'Food is one of the most direct lines to roots'}],
+  'Creativity':[{t:'Make something today without caring how it turns out',c:'The outcome is not the point. The making is'},{t:'Spend one unstructured hour with materials that interest you',c:'Creativity needs open time to emerge'},{t:'Begin something you\'ve been putting off — just the beginning',c:'Starting is the hardest part. Five minutes is enough'}],
+  'Challenge':[{t:'Do something today at the edge of your current ability',c:'Challenge is found just past comfort — not miles past it'},{t:'Do the hard thing on your list first',c:'The avoided thing is often the most stretching'}],
+  'Learning':[{t:'Read something in a domain you know nothing about',c:'Learning is most alive at the edges of what you know'},{t:'Ask someone to teach you something they know well',c:'Learning from a person is different from a screen'}],
+  'Expression':[{t:'Make something that only you would make',c:'Expression is specific — generic making is craft, not expression'},{t:'Tell someone how you actually feel — not the edited version',c:'Verbal expression is still expression'}],
+  'Meaning':[{t:'Write about what you\'d want people to remember about you',c:'Meaning is often found backwards, from the end'},{t:'Identify one thing you do that only you can do',c:'Irreplaceability is close to meaning'}],
+  'Stillness':[{t:'Sit for 10 minutes doing absolutely nothing',c:'Stillness is not found — it\'s made'},{t:'Take a slow walk without music, podcasts or destination',c:'Walking without input is genuinely still'}],
+  'Integrity':[{t:'Identify one place where your actions don\'t match your values',c:'Integrity gaps are uncomfortable but important to name'},{t:'Have the conversation you\'ve been avoiding',c:'Integrity often waits behind the hard thing'}],
+  'Hope':[{t:'Write about one thing you\'re genuinely looking forward to',c:'Hope is fed by anticipation, however small'},{t:'Do one thing that moves something forward — however small',c:'Momentum and hope are connected'}],
+  'Progress':[{t:'Break one stuck thing into the smallest possible next step',c:'Progress often just needs a smaller unit'},{t:'Write down one thing you\'ve moved forward this week',c:'Progress is often invisible until you name it'}],
+  'Understanding':[{t:'Write about the situation from another person\'s point of view',c:'Perspective-taking is a fast route to understanding'},{t:'Sit with not-understanding for a while before acting',c:'Premature conclusions are the enemy of real understanding'}],
+  'Trust':[{t:'Do one small thing to rebuild trust with yourself',c:'Self-trust is the foundation'},{t:'Follow through on one small commitment you\'ve made',c:'Reliability builds trust incrementally'}],
+  'Predictability':[{t:'Create a simple routine for tomorrow — write it down',c:'Predictability is something you can partially create'},{t:'Identify three things you can count on this week',c:'Anchoring to what is stable is calming'}],
+  'Presence':[{t:'Put your phone in another room for one hour',c:'Presence is hard with a pocket full of interruptions'},{t:'Do one thing today and only that thing',c:'Presence is single-tasking'}],
+  'Warmth':[{t:'Reach out to someone who makes you feel warm just thinking of them',c:'Some people are warmth — go toward them'},{t:'Do something kind for someone without being asked',c:'Giving warmth generates it'}],
+  'Joy':[{t:'Do one thing today purely because it brings you joy',c:'Joy has no side effects — it just needs permission'},{t:'Let yourself laugh — seek out what makes you laugh',c:'Laughter is joy\'s most physical form'}],
+  'Stimulation':[{t:'Learn about something completely outside your usual domain',c:'Novelty is the most reliable form of stimulation'},{t:'Go somewhere new — even just a street you haven\'t walked',c:'New environments wake the brain up'}],
+  'Freedom':[{t:'Do one thing today chosen entirely for yourself',c:'Freedom is felt in the choosing'},{t:'Spend time in nature — space creates a felt sense of freedom',c:'Open landscapes are physiologically freeing'}],
+  'default':[{t:'Take a slow walk outside without your phone',c:'Movement and nature both restore'},{t:'Write freely for 10 minutes without stopping',c:'Uncensored writing clears the inner weather'},{t:'Rest without guilt — allow yourself to simply be',c:'Permission to stop is its own kind of care'},{t:'Do one genuinely kind thing for yourself today',c:'Self-care in the smallest possible form'}],
 };
 
-const ANTHRO_API = 'https://api.anthropic.com/v1/messages';
-let appState = {
-  feeling:null, feelingPositive:false, area:null, need:null, needDesc:null,
-  planItems:[], savedPlans:[], lifeVals:AREAS.map(()=>5), talkNeed:null,
-  lifeFromPositive: false,
+let appState={
+  feeling:null,feelingPositive:false,area:null,need:null,needDesc:null,
+  planItems:[],savedPlans:[],lifeVals:AREAS.map(()=>5),talkNeed:null,lifeFromPositive:false,
 };
+
+// Rituals state
+let myRituals=[]; // {text, called, color, stroke, tc}
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
-function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-function enterApp(){ showScreen('s-app'); }
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+function enterApp(){showScreen('s-app');renderRitualCategories();}
 function showTab(id,btn){
-  ['discover','need','plan','saved'].forEach(t=>{ const el=document.getElementById('tab-'+t); if(el) el.style.display=t===id?'block':'none'; });
+  ['discover','need','plan','rituals','saved'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===id?'block':'none';});
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  else{ const idx=['discover','need','plan','saved'].indexOf(id); const btns=document.querySelectorAll('.nav-btn'); if(btns[idx]) btns[idx].classList.add('active'); }
-  if(id==='saved') renderSaved();
+  if(btn)btn.classList.add('active');
+  else{const idx=['discover','need','plan','rituals','saved'].indexOf(id);const btns=document.querySelectorAll('.nav-btn');if(btns[idx])btns[idx].classList.add('active');}
+  if(id==='saved')renderSaved();
 }
 
-// ── WHEEL ─────────────────────────────────────────────────────────────────────
+// ── DISCOVER ──────────────────────────────────────────────────────────────────
 function startWheel(){
-  const div = document.getElementById('discover-tool');
-  div.innerHTML = '';
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.style.marginTop = '4px';
-  card.innerHTML = `
-    <p class="section-label" style="margin-bottom:10px">How are you feeling right now?</p>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5">Tap the feeling that's most present.</p>
-    <div class="feelings-section">
-      <div class="feelings-group-label">Difficult feelings</div>
-      <div class="feeling-pills" id="difficult-pills"></div>
-      <div class="feelings-group-label" style="margin-top:16px">Positive feelings</div>
-      <div class="feeling-pills" id="positive-pills"></div>
-    </div>
+  const div=document.getElementById('discover-tool');div.innerHTML='';
+  const card=document.createElement('div');card.className='card';card.style.marginTop='4px';
+  card.innerHTML=`<p class="section-label" style="margin-bottom:10px">How are you feeling right now?</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">Tap the feeling that's most present. We'll trace it to what it's asking for.</p>
+    <div class="feelings-group-label">Difficult feelings</div>
+    <div class="feeling-pills" id="difficult-pills"></div>
+    <div class="feelings-group-label" style="margin-top:14px">Positive feelings</div>
+    <div class="feeling-pills" id="positive-pills"></div>
     <div id="feeling-response"></div>`;
   div.appendChild(card);
-
-  const dp = document.getElementById('difficult-pills');
   DIFFICULT_FEELINGS.forEach((f,i)=>{
-    const p = document.createElement('span');
-    p.className='pill'; p.textContent=f.f;
+    const p=document.createElement('span');p.className='pill';p.textContent=f.f;
     p.style.cssText=`background:${f.c};color:${f.tc};border-color:${f.tc}50`;
     p.onclick=()=>selectFeeling(i,p,false);
-    dp.appendChild(p);
+    document.getElementById('difficult-pills').appendChild(p);
   });
-
-  const pp = document.getElementById('positive-pills');
   POSITIVE_FEELINGS.forEach((f,i)=>{
-    const p = document.createElement('span');
-    p.className='pill'; p.textContent=f.f;
+    const p=document.createElement('span');p.className='pill';p.textContent=f.f;
     p.style.cssText=`background:${f.c};color:${f.tc};border-color:${f.tc}50`;
     p.onclick=()=>selectFeeling(i,p,true);
-    pp.appendChild(p);
+    document.getElementById('positive-pills').appendChild(p);
   });
 }
 
-function selectFeeling(i, el, isPositive){
-  document.querySelectorAll('#difficult-pills .pill, #positive-pills .pill').forEach(p=>p.style.outline='');
-  const f = isPositive ? POSITIVE_FEELINGS[i] : DIFFICULT_FEELINGS[i];
-  el.style.outline = `2px solid ${f.tc}`;
-  appState.feeling = f.f;
-  appState.feelingPositive = isPositive;
-
-  const resp = document.getElementById('feeling-response');
-
+function selectFeeling(i,el,isPositive){
+  document.querySelectorAll('#difficult-pills .pill,#positive-pills .pill').forEach(p=>p.style.outline='');
+  const f=isPositive?POSITIVE_FEELINGS[i]:DIFFICULT_FEELINGS[i];
+  el.style.outline=`2px solid ${f.tc}`;
+  appState.feeling=f.f;appState.feelingPositive=isPositive;
+  const resp=document.getElementById('feeling-response');
   if(isPositive){
-    // Positive path → warm acknowledgement → route to life inventory
-    resp.innerHTML = `
-      <div class="positive-banner">
-        <div class="pb-title">That's worth pausing on.</div>
-        <div class="pb-body">When we feel <strong>${f.f.toLowerCase()}</strong>, our needs are being met. That's genuinely good. The life inventory can help you see which areas are thriving — and quietly notice if anything could use a little more tending.</div>
-        <button class="btn btn-sage" style="width:100%;justify-content:center" onclick="goToLifeFromPositive()">Check in on your life areas →</button>
-      </div>`;
+    resp.innerHTML=`<div class="positive-banner"><div class="pb-title">That's worth honouring.</div>
+      <div class="pb-body">When we feel <strong>${f.f.toLowerCase()}</strong>, our needs are being met. The life areas check-in can show where you're thriving — and whether anything is quietly calling for more tending.</div>
+      <button class="btn btn-sage" style="width:100%;justify-content:center" onclick="goToLifeFromPositive()">Check in on your life areas →</button></div>`;
   } else {
-    // Difficult path → show linked needs shortlist
-    const df = DIFFICULT_FEELINGS[i];
-    resp.innerHTML = `
-      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-        <p style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">When we feel <strong style="color:var(--text)">${df.f.toLowerCase()}</strong>, we often need one of these. Which feels closest?</p>
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px">
-          ${df.needs.map((n,ni)=>`<span class="pill" style="background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)" onclick="goToNeedShortlist('${n}','${df.nd[ni].replace(/'/g,"\\'")}')">${n}</span>`).join('')}
-        </div>
-        <button class="btn" style="font-size:13px;width:100%;justify-content:center" onclick="showNeedTalk('')">Not sure — we'll help you figure it out</button>
-      </div>`;
+    const df=DIFFICULT_FEELINGS[i];
+    resp.innerHTML=`<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">When we feel <strong style="color:var(--text)">${df.f.toLowerCase()}</strong>, something in us is asking to be tended to. Which of these feels closest to what's underneath?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px">${df.needs.map((n,ni)=>`<span class="pill" style="background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)" onclick="goToNeedShortlist('${n}','${df.nd[ni].replace(/'/g,"\\'")}')">${n}</span>`).join('')}</div>
+      <button class="btn" style="font-size:13px;width:100%;justify-content:center" onclick="showNeedTalk('')">Not sure — help me find what's underneath</button></div>`;
   }
   resp.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function goToLifeFromPositive(){
-  appState.lifeFromPositive = true;
-  startLife();
-  showTab('discover');
-}
+function goToLifeFromPositive(){appState.lifeFromPositive=true;startLife();showTab('discover');}
 
-// ── LIFE AREAS ────────────────────────────────────────────────────────────────
 function startLife(){
-  const div = document.getElementById('discover-tool');
-  div.innerHTML = '';
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.style.marginTop = '4px';
-
-  const intro = appState.lifeFromPositive
-    ? `<p class="section-label" style="margin-bottom:4px">Life areas check-in</p>
-       <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5">Things are feeling good — let's see where you're thriving, and whether anything could use a little more attention.</p>`
-    : `<p class="section-label" style="margin-bottom:4px">Life areas inventory</p>
-       <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5">Rate each area from 1–10. Go with your first instinct.</p>`;
-
-  card.innerHTML = `
-    ${intro}
-    <div id="life-sliders"></div>
-    <div style="margin-top:16px;display:flex;justify-content:flex-end">
-      <button class="btn btn-terra" onclick="showLifeResults()">See the picture →</button>
-    </div>
-    <div id="life-results" style="display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)"></div>`;
+  const div=document.getElementById('discover-tool');div.innerHTML='';
+  const card=document.createElement('div');card.className='card';card.style.marginTop='4px';
+  const intro=appState.lifeFromPositive
+    ?`<p class="section-label" style="margin-bottom:4px">A moment to tend.</p><p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">Things are feeling good. Let's see where you're thriving — and where a little tending might deepen things further.</p>`
+    :`<p class="section-label" style="margin-bottom:4px">Where is life asking for more tending?</p><p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">Rate each area from 1–10. Don't think too long — your first answer is usually the true one.</p>`;
+  card.innerHTML=`${intro}<div id="life-sliders"></div>
+    <div style="margin-top:14px;display:flex;justify-content:flex-end"><button class="btn btn-terra" onclick="showLifeResults()">See the picture →</button></div>
+    <div id="life-results" style="display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)"></div>`;
   div.appendChild(card);
-
-  const ls = document.getElementById('life-sliders');
   AREAS.forEach((a,i)=>{
-    const row = document.createElement('div');
-    row.className = 'slider-row';
-    row.innerHTML = `
-      <div class="slider-label">
-        <span class="area-name-s"><span style="width:7px;height:7px;border-radius:50%;background:${a.stroke};display:inline-block;flex-shrink:0"></span>${a.name}</span>
-        <span style="font-size:13px;font-weight:500;color:${a.stroke}" id="sv-${i}">${appState.lifeVals[i]}</span>
-      </div>
+    const row=document.createElement('div');row.className='slider-row';
+    row.innerHTML=`<div class="slider-label"><span class="area-name-s"><span style="width:7px;height:7px;border-radius:50%;background:${a.stroke};display:inline-block;flex-shrink:0"></span>${a.name}</span><span style="font-size:13px;font-weight:500;color:${a.stroke}" id="sv-${i}">${appState.lifeVals[i]}</span></div>
       <input type="range" min="1" max="10" step="1" value="${appState.lifeVals[i]}" oninput="updateLifeVal(${i},this.value)">`;
-    ls.appendChild(row);
+    document.getElementById('life-sliders').appendChild(row);
   });
 }
 
-function updateLifeVal(i,v){ appState.lifeVals[i]=parseInt(v); document.getElementById('sv-'+i).textContent=v; }
+function updateLifeVal(i,v){appState.lifeVals[i]=parseInt(v);document.getElementById('sv-'+i).textContent=v;}
 
 function showLifeResults(){
-  const sorted = AREAS.map((a,i)=>({...a,score:appState.lifeVals[i],idx:i})).sort((a,b)=>a.score-b.score);
-  const lowest = sorted[0];
-  const highest = sorted[sorted.length-1];
-  appState.area = lowest.name;
-
-  const div = document.getElementById('life-results');
-  div.style.display = 'block';
-
-  const fromPositive = appState.lifeFromPositive;
-
-  // heading changes based on entry path
-  const topHeading = fromPositive
-    ? `<p class="section-label" style="margin-bottom:10px">Your picture</p>`
-    : `<p class="section-label" style="margin-bottom:10px">What needs attention</p>`;
-
-  // thriving banner (always shown if high score exists)
-  const thrivingBanner = highest.score >= 7
-    ? `<div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:12px;padding:12px 16px;margin-bottom:12px;font-size:13px;color:var(--text2);line-height:1.5">
-        <span style="font-weight:500;color:var(--sage)">Thriving: ${highest.name}</span> — scoring ${highest.score}/10. This is a real strength right now. Let it support you.
-       </div>`
-    : '';
-
-  // attention banner — always shown, copy shifts for positive path
-  const attentionIntro = fromPositive
-    ? `Even when things feel good overall, there's often one area that could use a little more tending.`
-    : `This is where your energy may be most needed right now.`;
-
-  div.innerHTML = `
-    ${topHeading}
+  const sorted=AREAS.map((a,i)=>({...a,score:appState.lifeVals[i],idx:i})).sort((a,b)=>a.score-b.score);
+  const lowest=sorted[0];const highest=sorted[sorted.length-1];
+  appState.area=lowest.name;
+  const div=document.getElementById('life-results');div.style.display='block';
+  const fp=appState.lifeFromPositive;
+  const thrivingBanner=highest.score>=7?`<div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:12px;padding:11px 14px;margin-bottom:10px;font-size:13px;color:var(--text2);line-height:1.5"><span style="font-weight:500;color:var(--sage)">Flourishing: ${highest.name}</span> — scoring ${highest.score}/10. This is a root holding you steady. Let it.</div>`:'';
+  div.innerHTML=`<p class="section-label" style="margin-bottom:10px">${fp?'What you\'re carrying, and what\'s flourishing':'What is asking to be tended'}</p>
     ${thrivingBanner}
-    <div style="background:${lowest.color};border:1px solid ${lowest.stroke}40;border-radius:12px;padding:14px 16px;margin-bottom:12px">
-      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px">${fromPositive ? 'Worth a little more tending' : 'Most in need of attention'}: ${lowest.name}</div>
-      <div style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">Scoring ${lowest.score}/10. ${attentionIntro}</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:8px;font-weight:500">What might be missing?</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px">
-        ${lowest.needs.map((n,ni)=>`<span class="pill" style="background:#fff;color:var(--text2);border-color:${lowest.stroke}60;font-size:12px" onclick="goToNeedShortlist('${n}','${lowest.nd[ni].replace(/'/g,"\\'")}','life')">${n}</span>`).join('')}
-      </div>
+    <div style="background:${lowest.color};border:1px solid ${lowest.stroke}40;border-radius:12px;padding:13px 15px;margin-bottom:10px">
+      <div style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px">${fp?'Calling for more tending':'Asking for your attention'}: ${lowest.name}</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:9px;line-height:1.5">Scoring ${lowest.score}/10. ${fp?'Even when things feel good, one area often quietly calls for more.':'This is where your energy wants to go right now.'}</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:7px;font-weight:500">What might be missing?</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${lowest.needs.map((n,ni)=>`<span class="pill" style="background:#fff;color:var(--text2);border-color:${lowest.stroke}60;font-size:12px" onclick="goToNeedShortlist('${n}','${lowest.nd[ni].replace(/'/g,"\\'")}')">${n}</span>`).join('')}</div>
     </div>
-    ${sorted.slice(1,4).map(a=>`
-      <div class="result-item${a.score<=4?' flagged':a.score>=8?' thriving':''}">
-        <span style="width:7px;height:7px;border-radius:50%;background:${a.stroke};display:inline-block;flex-shrink:0"></span>
-        <span class="result-name-r">${a.name}</span>
-        <div class="rbar-wrap"><div class="rbar" style="width:${a.score*10}%;background:${a.score<=4?'var(--terra)':a.score<=6?'var(--sand)':'var(--sage)'}"></div></div>
-        <span class="rscore" style="color:${a.score<=4?'var(--terra)':a.score>=8?'var(--sage)':'var(--text3)'}">${a.score}/10</span>
-      </div>`).join('')}
-    <div style="margin-top:12px;display:flex;justify-content:flex-end">
-      <button class="btn" style="font-size:13px" onclick="showNeedTalk('${lowest.name}')">Not sure what's missing — we'll help name it</button>
-    </div>`;
+    ${sorted.slice(1,4).map(a=>`<div class="result-item${a.score<=4?' flagged':a.score>=8?' thriving':''}"><span style="width:7px;height:7px;border-radius:50%;background:${a.stroke};display:inline-block;flex-shrink:0"></span><span class="result-name-r">${a.name}</span><div class="rbar-wrap"><div class="rbar" style="width:${a.score*10}%;background:${a.score<=4?'var(--terra)':a.score<=6?'var(--sand)':'var(--sage)'}"></div></div><span class="rscore" style="color:${a.score<=4?'var(--terra)':a.score>=8?'var(--sage)':'var(--text3)'}">${a.score}/10</span></div>`).join('')}
+    <div style="margin-top:10px;display:flex;justify-content:flex-end"><button class="btn" style="font-size:13px" onclick="showNeedTalk('${lowest.name}')">Not sure what's asking — we'll help you name it</button></div>`;
   div.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-// ── NEED BRIDGE ───────────────────────────────────────────────────────────────
-function goToNeedShortlist(need, desc){
-  appState.need = need; appState.needDesc = desc;
-  showNeedConfirm();
-}
+// ── NEED ──────────────────────────────────────────────────────────────────────
+function goToNeedShortlist(need,desc){appState.need=need;appState.needDesc=desc;showNeedConfirm();}
 
 function showNeedConfirm(){
-  showTab('need');
-  setNeedDots(2);
-  document.getElementById('need-content').innerHTML = `
-    <p class="heading">Your identified need</p>
-    <p class="subtext">Take a moment with this. Does it feel true?</p>
+  showTab('need');setNeedDots(2);
+  // Build ritual context note if relevant
+  const tended=myRituals.filter(r=>!r.called);
+  const ritualNote=tended.length?`<div style="background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--brown);line-height:1.6;margin-bottom:14px"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:4px"><path d="M6 1L7.2 3.8H10L7.8 5.5L8.6 8.5L6 6.8L3.4 8.5L4.2 5.5L2 3.8H4.8L6 1Z" fill="var(--gold)"/></svg>We'll weave your rituals into the plan for this need.</div>`:'';
+  document.getElementById('need-content').innerHTML=`
+    <p class="heading">Something is asking to be tended.</p>
+    <p class="subtext">Sit with this for a moment. Does it feel true?</p>
     <div class="confirmed-need">
-      <div class="cn-label">Identified need${appState.area?' · '+appState.area:''}</div>
+      <div class="cn-label">What's asking to be tended${appState.area?' · '+appState.area:''}</div>
       <div class="cn-need">${appState.need}</div>
       <div class="cn-desc">${appState.needDesc||''}</div>
     </div>
-    <div style="padding:12px 14px;border-radius:10px;background:var(--cream2);font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px">
-      If this feels even 60% true, that's enough to work with. Tap "Not quite" to go back and try another.
+    ${ritualNote}
+    <div style="padding:11px 13px;border-radius:10px;background:var(--cream2);font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px">
+      If this feels even 60% true, that's enough. The body often knows before the mind does. Tap "Not this one" to go back and look again.
     </div>
     <div class="footer">
-      <button class="btn-ghost" onclick="showTab('discover')">← Not quite</button>
-      <button class="btn btn-terra" onclick="buildPlan()">Create my plan →</button>
+      <button class="btn-ghost" onclick="showTab('discover')">← Not this one</button>
+      <button class="btn btn-terra" onclick="buildPlan()">Begin tending to this →</button>
     </div>`;
 }
 
 function showNeedTalk(area){
-  showTab('need'); setNeedDots(1); appState.talkNeed = null;
-  const prompt = area
-    ? `What specifically feels missing in your ${area.toLowerCase()} right now?`
-    : `When you sit with how you're feeling, what does it seem like you most need right now?`;
-  document.getElementById('need-content').innerHTML = `
-    <p class="heading">Let's figure it out together</p>
-    <p class="subtext">Describe what's going on and we'll help you name what you need.</p>
+  showTab('need');setNeedDots(1);appState.talkNeed=null;
+  const prompt=area?`What specifically feels missing in your ${area.toLowerCase()} right now?`:`When you sit with how you're feeling, what does it seem like you most need?`;
+  document.getElementById('need-content').innerHTML=`
+    <p class="heading">Let's find it together.</p>
+    <p class="subtext">Write what's present. We'll help you hear what it's asking for.</p>
     <div id="talk-chat"></div>
     <div id="talk-typing" style="display:none" class="typing"><span></span><span></span><span></span></div>
     <div id="talk-result"></div>
@@ -534,194 +547,317 @@ function showNeedTalk(area){
       </div>
     </div>
     <div id="talk-footer" style="display:none" class="footer">
-      <button class="btn-ghost" onclick="showTab('discover')">← Start over</button>
-      <button class="btn btn-terra" onclick="confirmFromTalk()">Yes, that's it →</button>
+      <button class="btn-ghost" onclick="showTab('discover')">← Begin again</button>
+      <button class="btn btn-terra" onclick="confirmFromTalk()">Yes, this is it →</button>
     </div>`;
 }
 
 async function submitTalk(area){
-  const text = document.getElementById('talk-text').value.trim();
-  if(!text) return;
-  const chat = document.getElementById('talk-chat');
+  const text=document.getElementById('talk-text').value.trim();if(!text)return;
+  const chat=document.getElementById('talk-chat');
   const ab=document.createElement('div');ab.className='a-bubble';ab.textContent=text;chat.appendChild(ab);
   document.getElementById('talk-input').style.display='none';
   document.getElementById('talk-typing').style.display='flex';
   try{
-    const res=await fetch(ANTHRO_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:250,
-      system:`You are the voice of Tend to Your Needs — warm, gentle, like a wise friend. ${area?`The person has been looking at their "${area}" life area.`:''} From what they write, identify the single most fitting underlying human need. Respond ONLY as JSON with no preamble: {"need":"Name","reflection":"One warm sentence acknowledging what they shared","desc":"One sentence describing what this need means for them specifically"}`,
-      messages:[{role:'user',content:text}]
-    })});
+    const res=await fetch('/api/suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({need:'identify',area,feeling:appState.feeling,userText:text,mode:'identify'})});
     const data=await res.json();
-    const raw=data.content.map(c=>c.text||'').join('').replace(/```json|```/g,'').trim();
-    const p=JSON.parse(raw);
+    const p=data.identified||{need:'Connection',reflection:'It sounds like something important is missing.',desc:'A need for genuine closeness and understanding.'};
     appState.talkNeed={name:p.need,desc:p.desc};
     document.getElementById('talk-typing').style.display='none';
     const qb=document.createElement('div');qb.className='q-bubble';qb.textContent=p.reflection;chat.appendChild(qb);
-    document.getElementById('talk-result').innerHTML=`
-      <div class="confirmed-need" style="margin-top:10px">
-        <div class="cn-label">Underlying need</div>
-        <div class="cn-need">${p.need}</div>
-        <div class="cn-desc">${p.desc}</div>
-      </div>`;
+    document.getElementById('talk-result').innerHTML=`<div class="confirmed-need" style="margin-top:10px"><div class="cn-label">What's asking to be tended</div><div class="cn-need">${p.need}</div><div class="cn-desc">${p.desc}</div></div>`;
     document.getElementById('talk-footer').style.display='flex';
   }catch(e){
     document.getElementById('talk-typing').style.display='none';
-    const eb=document.createElement('div');eb.className='q-bubble';eb.textContent='Something went wrong — please try again.';document.getElementById('talk-chat').appendChild(eb);
+    const eb=document.createElement('div');eb.className='q-bubble';eb.textContent='Something went wrong — please try again.';chat.appendChild(eb);
     document.getElementById('talk-input').style.display='block';
   }
 }
 
 function confirmFromTalk(){
-  if(!appState.talkNeed) return;
-  appState.need=appState.talkNeed.name; appState.needDesc=appState.talkNeed.desc;
-  showNeedConfirm();
+  if(!appState.talkNeed)return;
+  appState.need=appState.talkNeed.name;appState.needDesc=appState.talkNeed.desc;showNeedConfirm();
 }
 
 function setNeedDots(step){
-  const dots=document.getElementById('need-dots');
-  if(!dots) return;
-  dots.querySelectorAll('.dot').forEach((d,i)=>{ d.className='dot'+(i<step?' done':i===step?' active':''); });
+  const dots=document.getElementById('need-dots');if(!dots)return;
+  dots.querySelectorAll('.dot').forEach((d,i)=>{d.className='dot'+(i<step?' done':i===step?' active':'');});
 }
 
 // ── PLAN ──────────────────────────────────────────────────────────────────────
 function buildPlan(){
-  showTab('plan'); appState.planItems=[];
+  showTab('plan');appState.planItems=[];
   const acts=ACTIVITIES[appState.need]||ACTIVITIES['default'];
+  // Find ritual matches for this need
+  const tended=myRituals.filter(r=>!r.called);
+  const calledToward=myRituals.filter(r=>r.called);
+  // Build ritual-sourced activities
+  const ritualActs=buildRitualActivities(tended,calledToward,appState.need);
+  const ritualBanner=tended.length||calledToward.length
+    ?`<div style="background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:12px;padding:11px 14px;margin-bottom:6px;font-size:12px;color:var(--brown);line-height:1.6"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:4px"><path d="M6 1L7.2 3.8H10L7.8 5.5L8.6 8.5L6 6.8L3.4 8.5L4.2 5.5L2 3.8H4.8L6 1Z" fill="var(--gold)"/></svg>Woven from your rituals</div>
+      <div id="ritual-acts" style="margin-bottom:16px"></div>`
+    :'';
   document.getElementById('plan-content').innerHTML=`
-    <div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:12px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px">
-      <div style="width:9px;height:9px;border-radius:50%;background:var(--sage);flex-shrink:0"></div>
-      <div style="font-size:13px;font-weight:500;color:var(--text)">Need: ${appState.need}${appState.area?' · from '+appState.area:''}</div>
+    <div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:12px;padding:11px 14px;margin-bottom:6px;display:flex;align-items:center;gap:9px">
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);flex-shrink:0"></div>
+      <div style="font-size:13px;font-weight:500;color:var(--text)">Tending to: ${appState.need}${appState.area?' · from '+appState.area:''}</div>
     </div>
-    <p class="heading">How would you like to tend to this?</p>
-    <p class="subtext">Choose what feels right for where you are today. There's no wrong answer.</p>
-    <p class="section-label">Activities</p>
+    <p style="font-size:11px;color:var(--text3);margin-bottom:16px;padding:0 2px;font-style:italic">Each practice below is gathered specifically for this need.</p>
+    <p class="heading">How will you tend to this?</p>
+    <p class="subtext">Choose what calls to you. Even one practice is enough.</p>
+    ${ritualBanner}
+    <p class="section-label">Practices for ${appState.need}</p>
     <div id="plan-acts"></div>
     <div class="divider"></div>
-    <p class="section-label" style="margin-bottom:4px">Want something more personalised?</p>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:12px;line-height:1.5">We can suggest activities that fit your specific situation right now.</p>
-    <button class="btn btn-sage" id="ai-btn" onclick="getAISuggestions()">Get personalised suggestions →</button>
-    <div id="ai-acts" style="margin-top:12px"></div>
-    <div id="plan-footer" style="display:none;margin-top:20px" class="footer">
-      <span style="font-size:13px;color:var(--text3)" id="plan-count">0 selected</span>
-      <button class="btn btn-terra" onclick="savePlan()">Save this plan →</button>
+    <p class="section-label" style="margin-bottom:4px">Want something woven just for you?</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:11px;line-height:1.5">We'll draw from your gathered rituals and where you are right now.</p>
+    <button class="btn btn-sage" id="ai-btn" onclick="getAISuggestions()">Weave my suggestions →</button>
+    <div id="ai-acts" style="margin-top:10px"></div>
+    <div id="plan-footer" style="display:none;margin-top:18px" class="footer">
+      <span style="font-size:13px;color:var(--text3)" id="plan-count">0 gathered</span>
+      <button class="btn btn-terra" onclick="savePlan()">Gather into my plans →</button>
     </div>`;
-  renderPlanActs(acts,'plan-acts');
+  if(ritualActs.length) renderPlanActs(ritualActs,'ritual-acts',true);
+  renderPlanActs(acts,'plan-acts',false);
 }
 
-function renderPlanActs(acts,cid){
-  const div=document.getElementById(cid); if(!div) return; div.innerHTML='';
+function buildRitualActivities(tended,called,need){
+  const results=[];
+  // Match tended rituals to this need with a connecting phrase
+  const needToRitualHint={
+    'Rest':['rest','nap','stillness','bed','lying','sitting in sunlight','slow'],
+    'Movement':['walk','swim','run','yoga','danc','stretch','cycling'],
+    'Connection':['call','letter','meal','friend','presence'],
+    'Creativity':['draw','sketch','writ','music','paint','clay','build','making'],
+    'Stillness':['silence','meditat','journaling','reading','sitting','prayer','contemplat'],
+    'Nourishment':['cook','tea','coffee','bath','bak','warm drink','meal'],
+    'Beauty':['tending to plants','arranging','garden'],
+    'Comfort':['bath','comforting','bed','sunlight'],
+    'Order':['tidying','order','routine','preparing'],
+  };
+  const hints=needToRitualHint[need]||[];
+  tended.forEach(r=>{
+    const match=hints.some(h=>r.text.toLowerCase().includes(h));
+    if(match) results.push({t:`${r.text} — as a ritual of ${need.toLowerCase()}`,c:'Already part of your life — let it serve this need today',ritual:true});
+  });
+  called.forEach(r=>{
+    const match=hints.some(h=>r.text.toLowerCase().includes(h));
+    if(match) results.push({t:`Begin ${r.text.toLowerCase()} — you've been called toward this`,c:'A practice you\'re drawn to — this could be the moment to begin',ritual:true,called:true});
+  });
+  return results;
+}
+
+function renderPlanActs(acts,cid,isRitual){
+  const div=document.getElementById(cid);if(!div)return;div.innerHTML='';
   acts.forEach(a=>{
+    const title=typeof a==='string'?a:a.t;
+    const context=typeof a==='string'?null:a.c;
+    const ritual=typeof a==='object'&&a.ritual;
+    const called=typeof a==='object'&&a.called;
     const card=document.createElement('div');
-    card.className='activity-card'+(appState.planItems.includes(a)?' selected':'');
-    card.innerHTML=`<div class="ac-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3 5.5L8 1" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><div class="ac-title">${a}</div></div>`;
-    card.onclick=()=>toggleAct(a);
+    card.className='activity-card'+(appState.planItems.includes(title)?' selected':'');
+    card.innerHTML=`<div class="ac-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3 5.5L8 1" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="ac-title">${title}</div>
+      ${context?`<div class="ac-context">${context}</div>`:''}
+      ${ritual?`<span class="ac-ritual-tag">${called?'✦ called toward':'✦ your ritual'}</span>`:''}</div>`;
+    card.onclick=()=>toggleAct(title);
     div.appendChild(card);
   });
 }
 
 function toggleAct(a){
   const idx=appState.planItems.indexOf(a);
-  if(idx>-1) appState.planItems.splice(idx,1); else appState.planItems.push(a);
+  if(idx>-1)appState.planItems.splice(idx,1);else appState.planItems.push(a);
   const n=appState.planItems.length;
-  const footer=document.getElementById('plan-footer');
-  if(footer) footer.style.display=n>0?'flex':'none';
-  const count=document.getElementById('plan-count');
-  if(count) count.textContent=`${n} selected`;
+  const footer=document.getElementById('plan-footer');if(footer)footer.style.display=n>0?'flex':'none';
+  const count=document.getElementById('plan-count');if(count)count.textContent=`${n} gathered`;
   document.querySelectorAll('.activity-card').forEach(card=>{
-    const t=card.querySelector('.ac-title');
-    if(t) card.classList.toggle('selected',appState.planItems.includes(t.textContent));
+    const t=card.querySelector('.ac-title');if(t)card.classList.toggle('selected',appState.planItems.includes(t.textContent));
   });
 }
 
 async function getAISuggestions(){
   const btn=document.getElementById('ai-btn');
-  btn.disabled=true; btn.textContent='We\'re thinking...';
+  btn.disabled=true;btn.textContent='We\'re thinking...';
   const area=document.getElementById('ai-acts');
-  area.innerHTML=`<p style="font-size:13px;color:var(--text3);padding:8px 0">Finding suggestions that fit where you are right now...</p>`;
+  area.innerHTML=`<p style="font-size:13px;color:var(--text3);padding:6px 0">Weaving suggestions from your rituals and where you are right now...</p>`;
   try{
-    const context=[appState.need&&`need: ${appState.need}`,appState.area&&`life area: ${appState.area}`,appState.feeling&&`feeling: ${appState.feeling}`].filter(Boolean).join(', ');
-    const res=await fetch(ANTHRO_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:400,
-      system:`You are the voice of Tend to Your Needs — warm, gentle, like a wise friend. Give 4 short, specific, warm activity suggestions. Respond ONLY as a JSON array of 4 strings. No preamble, no backticks.`,
-      messages:[{role:'user',content:`Suggest 4 gentle, practical activities for someone with ${context}. Make them specific and warm.`}]
+    const tendedRituals=myRituals.filter(r=>!r.called).map(r=>r.text);
+    const calledRituals=myRituals.filter(r=>r.called).map(r=>r.text);
+    const res=await fetch('/api/suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      need:appState.need,area:appState.area,feeling:appState.feeling,
+      tendedRituals,calledRituals,
     })});
     const data=await res.json();
-    const raw=data.content.map(c=>c.text||'').join('').replace(/```json|```/g,'').trim();
-    const suggestions=JSON.parse(raw);
-    area.innerHTML=`<p class="section-label" style="margin-top:4px;margin-bottom:10px">Suggested for you</p>`;
-    renderPlanActs(suggestions,'ai-acts');
-    btn.textContent='Refresh suggestions'; btn.disabled=false;
+    if(!data.suggestions)throw new Error('no suggestions');
+    area.innerHTML=`<p class="section-label" style="margin-top:4px;margin-bottom:10px">Woven for you</p>`;
+    renderPlanActs(data.suggestions,'ai-acts',false);
+    btn.textContent='Refresh suggestions';btn.disabled=false;
   }catch(e){
-    area.innerHTML=`<p style="font-size:13px;color:var(--terra)">Couldn't load suggestions — please try again.</p>`;
-    btn.textContent='Get personalised suggestions →'; btn.disabled=false;
+    area.innerHTML=`<p style="font-size:13px;color:var(--terra)">Couldn't load suggestions right now — the activities above are a great place to start.</p>`;
+    btn.textContent='Try again';btn.disabled=false;
   }
 }
 
 function savePlan(){
-  if(!appState.planItems.length) return;
+  if(!appState.planItems.length)return;
+  const isFirstPlan = appState.savedPlans.length === 0;
   appState.savedPlans.unshift({need:appState.need,area:appState.area||null,items:[...appState.planItems],date:new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'}),scheduled:false});
-  appState.planItems=[];
-  appState.lifeFromPositive=false;
+  appState.planItems=[];appState.lifeFromPositive=false;
   showTab('saved');
+  // Onboarding moment: after first plan saved with no rituals gathered yet
+  if(isFirstPlan && myRituals.length===0){
+    setTimeout(()=>showRitualOnboarding(),400);
+  }
+}
+
+function showRitualOnboarding(){
+  const empty = document.getElementById('saved-empty');
+  const list = document.getElementById('saved-list');
+  // Insert onboarding banner after the saved plan list
+  const existing = document.getElementById('ritual-onboarding');
+  if(existing) return;
+  const banner = document.createElement('div');
+  banner.id = 'ritual-onboarding';
+  banner.style.cssText = 'background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:16px;padding:20px 20px 18px;margin-top:20px';
+  banner.innerHTML = `
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 4.5H12.5L9.5 6.8L10.5 10.5L7 8.2L3.5 10.5L4.5 6.8L1.5 4.5H5.5L7 1Z" fill="var(--gold)"/></svg>
+      <span style="font-size:13px;font-weight:500;color:var(--gold)">One more thing</span>
+    </div>
+    <p style="font-size:15px;font-weight:500;color:var(--text);margin-bottom:6px;line-height:1.3">Tell us what you already return to.</p>
+    <p style="font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:16px">Your rituals — the practices that restore, ground, and move you — help us weave your plans more truly. Even gathering two or three makes a difference.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-terra" onclick="showTab('rituals',document.querySelectorAll('.nav-btn')[3]);document.getElementById('ritual-onboarding').remove()">Gather my rituals →</button>
+      <button class="btn" onclick="document.getElementById('ritual-onboarding').remove()" style="font-size:12px;color:var(--text3);border-color:var(--border)">Maybe later</button>
+    </div>`;
+  list.parentElement.appendChild(banner);
+}
+
+// ── RITUALS ───────────────────────────────────────────────────────────────────
+function renderRitualCategories(){
+  const div=document.getElementById('ritual-categories');
+  if(!div||div.dataset.rendered)return;
+  div.dataset.rendered='1';
+  RITUAL_CATEGORIES.forEach((cat,ci)=>{
+    const section=document.createElement('div');
+    section.className='category-section';
+    section.innerHTML=`<div class="cat-header">
+        <div class="cat-icon" style="background:${cat.color};border:1px solid ${cat.stroke}40">
+          <svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="3.5" fill="${cat.stroke}"/></svg>
+        </div>
+        <span class="cat-name">${cat.name}</span>
+      </div>
+      <p class="cat-desc">${cat.desc}</p>
+      <div class="cat-rituals" id="cat-${ci}"></div>`;
+    div.appendChild(section);
+    renderCatPills(cat,ci);
+  });
+}
+
+function renderCatPills(cat,ci){
+  const div=document.getElementById('cat-'+ci);if(!div)return;div.innerHTML='';
+  cat.rituals.forEach(r=>{
+    const added=myRituals.some(x=>x.text===r);
+    const pill=document.createElement('div');
+    pill.className='suggestion-pill'+(added?' added':'');
+    pill.style.cssText=`background:${cat.color};color:${cat.tc};border-color:${cat.stroke}50`;
+    pill.innerHTML=added?`<span>✓ ${r}</span>`:`<span>+ ${r}</span>`;
+    if(!added){
+      pill.onclick=()=>addRitual(r,false,cat,ci);
+      let pt;
+      pill.addEventListener('mousedown',()=>{pt=setTimeout(()=>addRitual(r,true,cat,ci),600);});
+      pill.addEventListener('mouseup',()=>clearTimeout(pt));
+      pill.addEventListener('touchstart',()=>{pt=setTimeout(()=>addRitual(r,true,cat,ci),600);},{passive:true});
+      pill.addEventListener('touchend',()=>clearTimeout(pt));
+    }
+    div.appendChild(pill);
+  });
+}
+
+function addRitual(text,called,cat,ci){
+  if(myRituals.some(r=>r.text===text))return;
+  myRituals.push({text,called,color:cat.color,stroke:cat.stroke,tc:cat.tc});
+  renderMyRituals();
+  renderCatPills(cat,ci);
+  flashConfirm(called);
+}
+
+function removeRitual(text){
+  myRituals=myRituals.filter(r=>r.text!==text);
+  renderMyRituals();
+  // re-render all category pills
+  RITUAL_CATEGORIES.forEach((cat,ci)=>renderCatPills(cat,ci));
+}
+
+function renderMyRituals(){
+  const list=document.getElementById('my-ritual-list');
+  const calledList=document.getElementById('called-list');
+  const count=document.getElementById('ritual-count');
+  if(!list)return;
+  const tended=myRituals.filter(r=>!r.called);
+  const called=myRituals.filter(r=>r.called);
+  count.textContent=`${myRituals.length} gathered`;
+  list.innerHTML=tended.length?'':'<span class="empty-rituals">Nothing gathered yet — explore below.</span>';
+  tended.forEach(r=>{
+    const chip=document.createElement('div');chip.className='my-ritual';
+    chip.style.cssText=`background:${r.color};color:${r.tc};border-color:${r.stroke}50`;
+    chip.innerHTML=`<span>${r.text}</span><button class="remove" onclick="removeRitual('${r.text.replace(/'/g,"\\'")}')">✕</button>`;
+    list.appendChild(chip);
+  });
+  calledList.innerHTML=called.length?'':'<span style="font-size:13px;color:var(--brown);opacity:.6;font-style:italic">None gathered yet.</span>';
+  called.forEach(r=>{
+    const chip=document.createElement('div');chip.className='my-ritual';
+    chip.style.cssText='background:var(--gold-light);color:var(--gold);border-color:var(--gold-mid)';
+    chip.innerHTML=`<svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.2 3.8H10L7.8 5.5L8.6 8.5L6 6.8L3.4 8.5L4.2 5.5L2 3.8H4.8L6 1Z" fill="var(--gold)"/></svg><span>${r.text}</span><button class="remove" onclick="removeRitual('${r.text.replace(/'/g,"\\'")}')">✕</button>`;
+    calledList.appendChild(chip);
+  });
+}
+
+function flashConfirm(called){
+  const msg=document.createElement('div');
+  msg.style.cssText=`position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:${called?'var(--gold-light)':'var(--sage-light)'};border:1px solid ${called?'var(--gold-mid)':'var(--sage-mid)'};color:${called?'var(--gold)':'var(--sage)'};padding:8px 16px;border-radius:20px;font-size:12px;font-weight:500;z-index:999;pointer-events:none;transition:opacity .3s;white-space:nowrap`;
+  msg.textContent=called?'✦ Gathered as called toward':'✦ Gathered into your rituals';
+  document.body.appendChild(msg);
+  setTimeout(()=>{msg.style.opacity='0';setTimeout(()=>msg.remove(),300);},1400);
 }
 
 // ── SAVED + CALENDAR ──────────────────────────────────────────────────────────
 function renderSaved(){
-  const list=document.getElementById('saved-list');
-  const empty=document.getElementById('saved-empty');
+  const list=document.getElementById('saved-list');const empty=document.getElementById('saved-empty');
   list.innerHTML='';
   if(!appState.savedPlans.length){empty.style.display='block';return;}
   empty.style.display='none';
   appState.savedPlans.forEach((plan,pi)=>{
     const timeKey=suggestTime(plan.items[0]||'');
     const timeLabel={morning:'Tomorrow morning',lunch:'Tomorrow lunchtime',evening:'Tomorrow evening',weekend:'This weekend'}[timeKey];
-    const card=document.createElement('div');
-    card.className='plan-entry';
-    card.innerHTML=`
-      <div class="pe-header"><span class="pe-need">Need: ${plan.need}</span><span class="pe-date">${plan.date}</span></div>
+    const card=document.createElement('div');card.className='plan-entry';
+    card.innerHTML=`<div class="pe-header"><span class="pe-need">Need: ${plan.need}</span><span class="pe-date">${plan.date}</span></div>
       ${plan.area?`<div class="pe-area">from ${plan.area}</div>`:''}
       <div class="pe-pills">${plan.items.map(i=>`<span class="pe-pill">${i}</span>`).join('')}</div>
-      <div class="cal-strip">
-        ${plan.scheduled
-          ?`<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sage)"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L4.5 8.5L10 3" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Added to Google Calendar</div>`
-          :`<span class="cal-note">We suggest: ${timeLabel}</span>
-            <button class="gcal-btn" onclick="scheduleGCal(${pi})">
-              <svg width="14" height="14" viewBox="0 0 18 18" fill="none"><rect x="1" y="2" width="16" height="14" rx="2" fill="white" opacity=".9"/><rect x="1" y="6" width="16" height="2" fill="white" opacity=".5"/><rect x="4" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/><rect x="12" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/></svg>
-              Add to Google Calendar
-            </button>`}
+      <div class="cal-strip">${plan.scheduled
+        ?`<div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sage)"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L4.5 8.5L10 3" stroke="var(--sage)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Added to Google Calendar</div>`
+        :`<span class="cal-note">We suggest: ${timeLabel}</span><button class="gcal-btn" onclick="scheduleGCal(${pi})"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><rect x="1" y="2" width="16" height="14" rx="2" fill="white" opacity=".9"/><rect x="1" y="6" width="16" height="2" fill="white" opacity=".5"/><rect x="4" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/><rect x="12" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/></svg>Add to Google Calendar</button>`}
       </div>`;
     list.appendChild(card);
   });
 }
 
-function suggestTime(a){
-  a=a.toLowerCase();
-  if(a.includes('walk')||a.includes('morning')||a.includes('write')||a.includes('grounding')||a.includes('breathe')) return 'morning';
-  if(a.includes('message')||a.includes('reach out')||a.includes('lunch')) return 'lunch';
-  if(a.includes('bed')||a.includes('evening')||a.includes('night')||a.includes('letter')) return 'evening';
-  if(a.includes('project')||a.includes('creative')||a.includes('weekend')) return 'weekend';
-  return 'morning';
-}
-
+function suggestTime(a){a=a.toLowerCase();if(a.includes('walk')||a.includes('morning')||a.includes('write')||a.includes('grounding')||a.includes('breathe'))return'morning';if(a.includes('message')||a.includes('reach out'))return'lunch';if(a.includes('bed')||a.includes('evening')||a.includes('night'))return'evening';if(a.includes('project')||a.includes('creative')||a.includes('weekend'))return'weekend';return'morning';}
 function pad(n){return String(n).padStart(2,'0')}
-function toGCal(d){return `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`}
+function toGCal(d){return`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`}
 
 function scheduleGCal(pi){
-  const plan=appState.savedPlans[pi];
-  const now=new Date();
+  const plan=appState.savedPlans[pi];const now=new Date();
   const timeKey=suggestTime(plan.items[0]||'');
   const times={morning:{h:9,m:0,dur:60},lunch:{h:12,m:30,dur:30},evening:{h:19,m:0,dur:60},weekend:{h:10,m:0,dur:90}};
-  const t=times[timeKey];
-  const d=new Date(now);
+  const t=times[timeKey];const d=new Date(now);
   if(timeKey==='weekend'){const day=d.getDay();d.setDate(d.getDate()+(day===6?1:(7-day)%7||7));}
-  else{d.setDate(d.getDate()+1);}
-  d.setHours(t.h,t.m,0,0);
-  const end=new Date(d.getTime()+t.dur*60000);
+  else d.setDate(d.getDate()+1);
+  d.setHours(t.h,t.m,0,0);const end=new Date(d.getTime()+t.dur*60000);
   const params=new URLSearchParams({action:'TEMPLATE',text:`Tend to Your Needs · ${plan.need}`,dates:`${toGCal(d)}/${toGCal(end)}`,details:`Tending to your need for ${plan.need.toLowerCase()}.\n\n${plan.items.map((a,i)=>`${i+1}. ${a}`).join('\n')}\n\nScheduled with Tend to Your Needs.`});
   window.open('https://calendar.google.com/calendar/render?'+params.toString(),'_blank');
-  appState.savedPlans[pi].scheduled=true;
-  renderSaved();
+  appState.savedPlans[pi].scheduled=true;renderSaved();
 }
 
 showScreen('s-splash');
