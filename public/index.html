@@ -1081,8 +1081,17 @@ async function fetchSupabaseKey(){
 }
 
 async function signInWithGoogle(){
+  // If supabase not ready yet, wait up to 3 seconds for it
   if(!supabase){
-    // Fallback: just enter app without auth
+    const btn = document.querySelector('.google-btn');
+    if(btn){ btn.textContent = 'Connecting...'; btn.disabled = true; }
+    for(let i=0; i<30; i++){
+      await new Promise(r=>setTimeout(r,100));
+      if(supabase) break;
+    }
+    if(btn){ btn.disabled = false; }
+  }
+  if(!supabase){
     enterApp();
     return;
   }
