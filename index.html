@@ -471,7 +471,7 @@ const QUADRANT_CONTEXT={
 
 function getClosestFeelings(normX, normY, count){
   return COMPASS_FEELINGS
-    .map(f=>({...f, dist: Math.sqrt((f.x-normX)**2 + (f.y-normY)**2)}))
+    .map((f,i)=>({...f, _i:i, dist: Math.sqrt((f.x-normX)**2 + (f.y-normY)**2)}))
     .sort((a,b)=>a.dist-b.dist)
     .slice(0,count);
 }
@@ -568,12 +568,11 @@ function showCompassResult(normX, normY, q){
   const alts=closest.slice(1);
   const ctx=QUADRANT_CONTEXT[q];
 
-  const altPills=alts.map((f,fi)=>{
-    const idx=COMPASS_FEELINGS.indexOf(f);
-    return `<span class="pill" style="background:${f.c};color:${f.tc};border-color:${f.tc}50;font-size:12px" onclick="selectCompassFeeling(${idx})">${f.f}</span>`;
+  const altPills=alts.map((f)=>{
+    return `<span class="pill" style="background:${f.c};color:${f.tc};border-color:${f.tc}50;font-size:12px" onclick="selectCompassFeeling(${f._i})">${f.f}</span>`;
   }).join('');
 
-  const primaryIdx=COMPASS_FEELINGS.indexOf(primary);
+  const primaryIdx=primary._i;
 
   result.innerHTML=`
     <div class="card">
