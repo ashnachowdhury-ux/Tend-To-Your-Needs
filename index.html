@@ -416,72 +416,70 @@ function showTab(id,btn){
 }
 
 // ── COMPASS DATA ──────────────────────────────────────────────────────────────
-const COMPASS_QUADRANTS={
-  tl:{
-    label:'Light but low energy',
-    desc:'Things feel manageable right now, but you\'re not running on much. A quiet space — maybe peaceful, maybe gently empty.',
-    positive:true,
-    feelings:[
-      {f:'Calm',        c:'#EAF0E8',tc:'#2A4A2A',positive:true},
-      {f:'Content',     c:'#F5F0E8',tc:'#5C4020',positive:true},
-      {f:'Peaceful',    c:'#E1F5EE',tc:'#085041',positive:true},
-      {f:'Grounded',    c:'#F5EAD8',tc:'#5C3010',positive:true},
-      {f:'Quiet',       c:'#EDE8F5',tc:'#2A1A5C',positive:true},
-      {f:'Still',       c:'#E8EFF5',tc:'#1A3A5C',positive:true},
-      {f:'Settled',     c:'#EAF3DE',tc:'#1A4A10',positive:true},
-      {f:'At ease',     c:'#F5F0E8',tc:'#5C3010',positive:true},
-    ]
-  },
-  tr:{
-    label:'Light and energised',
-    desc:'You have energy and things feel relatively open. Even here, something may be worth tending.',
-    positive:true,
-    feelings:[
-      {f:'Joyful',      c:'#EAF3DE',tc:'#27500A',positive:true},
-      {f:'Hopeful',     c:'#EDE8F5',tc:'#2A1A5C',positive:true},
-      {f:'Energised',   c:'#EAF0E8',tc:'#2A4A2A',positive:true},
-      {f:'Grateful',    c:'#E1F5EE',tc:'#085041',positive:true},
-      {f:'Inspired',    c:'#EDE8F5',tc:'#3A2A5C',positive:true},
-      {f:'Curious',     c:'#FAEEDA',tc:'#5C3A10',positive:true},
-      {f:'Connected',   c:'#E8EFF5',tc:'#1A3A5C',positive:true},
-      {f:'Alive',       c:'#EAF3DE',tc:'#1A4A10',positive:true},
-    ]
-  },
-  bl:{
-    label:'Heavy and low energy',
-    desc:'Something is weighing on you and you don\'t have much left. This is the hardest place to be — gentle is the word.',
-    positive:false,
-    feelings:[
-      {f:'Sad',         c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Understanding','Meaning'],nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like.','A sense that this difficulty means something.']},
-      {f:'Numb',        c:'#EEEEED',tc:'#3A3A30',needs:['Stimulation','Joy','Purpose'],nd:['Something that genuinely engages you.','A moment of real delight, however small.','A reason that makes things feel worth doing.']},
-      {f:'Disconnected',c:'#E8EFF5',tc:'#1A3A5C',needs:['Belonging','Warmth','Presence'],nd:['A sense of being part of something.','Genuine human warmth — felt, not just present.','Being fully here, in this moment.']},
-      {f:'Lonely',      c:'#E8EFF5',tc:'#1A3A5C',needs:['Connection','Being seen','Intimacy'],nd:['Genuine closeness — not just being in contact.','Someone really getting who you are.','Real depth — emotional or physical.']},
-      {f:'Hopeless',    c:'#EDE8F5',tc:'#3A2A5C',needs:['Hope','Meaning','Support'],nd:['A felt sense that things can still shift.','Something that makes the effort feel worth it.','Someone to sit with you in it.']},
-      {f:'Exhausted',   c:'#F1EFE8',tc:'#3A3020',needs:['Rest','Care','Nourishment'],nd:['Permission to stop — not push through, just stop.','Attending to yourself as you would a friend.','Being properly fed — physically and emotionally.']},
-      {f:'Empty',       c:'#EEEEED',tc:'#3A3A30',needs:['Meaning','Stimulation','Connection'],nd:['Something that orients you toward what matters.','Something that genuinely wakes you up.','A real exchange with another person.']},
-      {f:'Grief',       c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Acknowledgement','Presence'],nd:['Warmth without the pressure to feel better.','Someone witnessing what you\'re carrying.','A quiet presence — not fixing, just being there.']},
-    ]
-  },
-  br:{
-    label:'Heavy but wired',
-    desc:'There\'s energy, but it\'s not comfortable energy. Your system is running hot — something is asking for attention.',
-    positive:false,
-    feelings:[
-      {f:'Anxious',     c:'#F5EAD8',tc:'#7A4A1A',needs:['Safety','Clarity','Reassurance'],nd:['A wish for things to feel more settled.','To see the situation clearly.','To hear that things will be okay.']},
-      {f:'Overwhelmed', c:'#F5EDE8',tc:'#5C2A1A',needs:['Support','Simplicity','Rest'],nd:['Someone to share the weight with.','Less on your plate right now.','Time to genuinely recover.']},
-      {f:'Restless',    c:'#EAF0E8',tc:'#2A4A2A',needs:['Movement','Freedom','Creativity'],nd:['Your body wanting to be used and stretched.','Room to move in your own direction.','Making or expressing something.']},
-      {f:'Frustrated',  c:'#F5EAD8',tc:'#7A3A10',needs:['Progress','Autonomy','Understanding'],nd:['A sense that things are actually moving.','Real say over what you do.','Someone getting why this matters.']},
-      {f:'Irritable',   c:'#F5E8E8',tc:'#5C1A1A',needs:['Rest','Respect','Space'],nd:['Real recovery — not scrolling, just stopping.','Your contributions and presence mattering.','Room to breathe without demands.']},
-      {f:'Scared',      c:'#F5E8F0',tc:'#5C1A3A',needs:['Safety','Predictability','Trust'],nd:['The ground feeling solid beneath you.','Knowing roughly what\'s coming.','People or situations you can rely on.']},
-      {f:'Panicked',    c:'#F5EAD8',tc:'#7A2A1A',needs:['Safety','Grounding','Reassurance'],nd:['Something to anchor you to right now.','A felt sense that you are okay in this moment.','A calm presence or voice that steadies you.']},
-      {f:'On edge',     c:'#F5EDE8',tc:'#5C3A1A',needs:['Safety','Rest','Clarity'],nd:['The background threat feeling like it can ease.','Your nervous system being allowed to settle.','Understanding what\'s actually happening.']},
-    ]
-  },
+// ── COMPASS — 32 feelings mapped to positions across the grid ─────────────────
+// Each feeling has: grid x,y (0–1), color, text color, positive flag, needs/nd for difficult ones
+// Position layout: x=0 is left (depleted), x=1 is right (buzzing), y=0 is top (light), y=1 is bottom (heavy)
+const COMPASS_FEELINGS=[
+  // TOP-LEFT quadrant — light + depleted (positive)
+  {f:'Calm',        x:.15,y:.15,c:'#EAF0E8',tc:'#2A4A2A',positive:true},
+  {f:'Still',       x:.05,y:.25,c:'#E8EFF5',tc:'#1A3A5C',positive:true},
+  {f:'At ease',     x:.25,y:.08,c:'#F5F0E8',tc:'#5C4020',positive:true},
+  {f:'Grounded',    x:.10,y:.38,c:'#F5EAD8',tc:'#5C3010',positive:true},
+  {f:'Peaceful',    x:.30,y:.20,c:'#E1F5EE',tc:'#085041',positive:true},
+  {f:'Quiet',       x:.18,y:.42,c:'#EDE8F5',tc:'#2A1A5C',positive:true},
+  {f:'Settled',     x:.38,y:.30,c:'#EAF3DE',tc:'#1A4A10',positive:true},
+  {f:'Content',     x:.35,y:.42,c:'#F5F0E8',tc:'#5C3020',positive:true},
+
+  // TOP-RIGHT quadrant — light + buzzing (positive)
+  {f:'Hopeful',     x:.60,y:.10,c:'#EDE8F5',tc:'#2A1A5C',positive:true},
+  {f:'Inspired',    x:.72,y:.08,c:'#EDE8F5',tc:'#3A2A5C',positive:true},
+  {f:'Grateful',    x:.62,y:.25,c:'#E1F5EE',tc:'#085041',positive:true},
+  {f:'Alive',       x:.82,y:.15,c:'#EAF3DE',tc:'#1A4A10',positive:true},
+  {f:'Curious',     x:.70,y:.35,c:'#FAEEDA',tc:'#5C3A10',positive:true},
+  {f:'Energised',   x:.88,y:.28,c:'#EAF0E8',tc:'#2A4A2A',positive:true},
+  {f:'Connected',   x:.62,y:.42,c:'#E8EFF5',tc:'#1A3A5C',positive:true},
+  {f:'Joyful',      x:.82,y:.40,c:'#EAF3DE',tc:'#27500A',positive:true},
+
+  // BOTTOM-LEFT quadrant — heavy + depleted (difficult)
+  {f:'Exhausted',   x:.08,y:.58,c:'#F1EFE8',tc:'#3A3020',needs:['Rest','Care','Nourishment'],nd:['Permission to stop — not push through, just stop.','Attending to yourself as you would a friend.','Being properly fed — physically and emotionally.']},
+  {f:'Grief',       x:.20,y:.72,c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Acknowledgement','Presence'],nd:['Warmth without the pressure to feel better.','Someone witnessing what you\'re carrying.','A quiet presence — not fixing, just being there.']},
+  {f:'Empty',       x:.08,y:.75,c:'#EEEEED',tc:'#3A3A30',needs:['Meaning','Stimulation','Connection'],nd:['Something that orients you toward what matters.','Something that genuinely wakes you up.','A real exchange with another person.']},
+  {f:'Hopeless',    x:.22,y:.78,c:'#EDE8F5',tc:'#3A2A5C',needs:['Hope','Meaning','Support'],nd:['A felt sense that things can still shift.','Something that makes the effort feel worth it.','Someone to sit with you in it.']},
+  {f:'Lonely',      x:.46,y:.60,c:'#E8EFF5',tc:'#1A3A5C',needs:['Connection','Being seen','Intimacy'],nd:['Genuine closeness — not just being in contact.','Someone really getting who you are.','Real depth — emotional or physical.']},
+  {f:'Sad',         x:.38,y:.72,c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Understanding','Meaning'],nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like.','A sense that this difficulty means something.']},
+  {f:'Numb',        x:.15,y:.90,c:'#EEEEED',tc:'#3A3A30',needs:['Stimulation','Joy','Purpose'],nd:['Something that genuinely engages you.','A moment of real delight, however small.','A reason that makes things feel worth doing.']},
+  {f:'Disconnected',x:.38,y:.88,c:'#E8EFF5',tc:'#1A3A5C',needs:['Belonging','Warmth','Presence'],nd:['A sense of being part of something.','Genuine human warmth — felt, not just present.','Being fully here, in this moment.']},
+
+  // BOTTOM-RIGHT quadrant — heavy + buzzing (difficult)
+  {f:'On edge',     x:.60,y:.58,c:'#F5EDE8',tc:'#5C3A1A',needs:['Safety','Rest','Clarity'],nd:['The background threat feeling like it can ease.','Your nervous system being allowed to settle.','Understanding what\'s actually happening.']},
+  {f:'Anxious',     x:.72,y:.60,c:'#F5EAD8',tc:'#7A4A1A',needs:['Safety','Clarity','Reassurance'],nd:['A wish for things to feel more settled.','To see the situation clearly.','To hear that things will be okay.']},
+  {f:'Irritable',   x:.60,y:.72,c:'#F5E8E8',tc:'#5C1A1A',needs:['Rest','Respect','Space'],nd:['Real recovery — not scrolling, just stopping.','Your contributions and presence mattering.','Room to breathe without demands.']},
+  {f:'Frustrated',  x:.75,y:.75,c:'#F5EAD8',tc:'#7A3A10',needs:['Progress','Autonomy','Understanding'],nd:['A sense that things are actually moving.','Real say over what you do.','Someone getting why this matters.']},
+  {f:'Overwhelmed', x:.58,y:.88,c:'#F5EDE8',tc:'#5C2A1A',needs:['Support','Simplicity','Rest'],nd:['Someone to share the weight with.','Less on your plate right now.','Time to genuinely recover.']},
+  {f:'Scared',      x:.68,y:.65,c:'#F5E8F0',tc:'#5C1A3A',needs:['Safety','Predictability','Trust'],nd:['The ground feeling solid beneath you.','Knowing roughly what\'s coming.','People or situations you can rely on.']},
+  {f:'Restless',    x:.88,y:.62,c:'#EAF0E8',tc:'#2A4A2A',needs:['Movement','Freedom','Creativity'],nd:['Your body wanting to be used and stretched.','Room to move in your own direction.','Making or expressing something.']},
+  {f:'Panicked',    x:.90,y:.92,c:'#F5EAD8',tc:'#7A2A1A',needs:['Safety','Grounding','Reassurance'],nd:['Something to anchor you to right now.','A felt sense that you are okay in this moment.','A calm presence or voice that steadies you.']},
+];
+
+// Quadrant descriptors for context text
+const QUADRANT_CONTEXT={
+  tl:{label:'Light but low energy',    desc:'Things feel manageable, but you\'re not running on much. A quiet space — maybe peaceful, maybe gently empty.'},
+  tr:{label:'Light and energised',     desc:'You have energy and things feel relatively open. Even here, something may be worth tending.'},
+  bl:{label:'Heavy and low energy',    desc:'Something is weighing on you and you don\'t have much left. This is the hardest place to be — gentle is the word.'},
+  br:{label:'Heavy but wired',         desc:'There\'s energy, but it\'s not comfortable energy. Your system is running hot — something is asking for attention.'},
 };
 
+function getClosestFeelings(normX, normY, count){
+  return COMPASS_FEELINGS
+    .map(f=>({...f, dist: Math.sqrt((f.x-normX)**2 + (f.y-normY)**2)}))
+    .sort((a,b)=>a.dist-b.dist)
+    .slice(0,count);
+}
+
 // ── DISCOVER ──────────────────────────────────────────────────────────────────
-let compassPos=null;
 let compassQuadrant=null;
+let compassNormX=0.25;
+let compassNormY=0.25;
 
 function startWheel(){
   const div=document.getElementById('discover-tool');
@@ -494,23 +492,23 @@ function startWheel(){
       <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5">Tap anywhere in the space below — no right answer, just go with your gut.</p>
       <div style="text-align:center;font-size:11px;font-weight:500;letter-spacing:.05em;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Light & easy</div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-        <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;writing-mode:horizontal-tb;white-space:nowrap">Depleted</span>
+        <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">Depleted</span>
         <div id="compass-grid" style="flex:1;aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:crosshair;touch-action:none;position:relative;border:1px solid var(--border)">
           <div style="position:absolute;top:0;left:0;width:50%;height:50%;background:#EAF0E8;display:flex;align-items:center;justify-content:center">
-            <span style="font-size:11px;font-weight:500;color:#3A6040;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Calm<br>Peaceful</span>
+            <span style="font-size:10px;font-weight:500;color:#3A6040;text-align:center;line-height:1.4;padding:6px;pointer-events:none;opacity:.7">Calm<br>Peaceful</span>
           </div>
           <div style="position:absolute;top:0;right:0;width:50%;height:50%;background:#EAF3DE;display:flex;align-items:center;justify-content:center">
-            <span style="font-size:11px;font-weight:500;color:#2A4A20;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Joyful<br>Hopeful</span>
+            <span style="font-size:10px;font-weight:500;color:#2A4A20;text-align:center;line-height:1.4;padding:6px;pointer-events:none;opacity:.7">Joyful<br>Hopeful</span>
           </div>
           <div style="position:absolute;bottom:0;left:0;width:50%;height:50%;background:#EDE8F5;display:flex;align-items:center;justify-content:center">
-            <span style="font-size:11px;font-weight:500;color:#3A2A5C;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Sad<br>Numb</span>
+            <span style="font-size:10px;font-weight:500;color:#3A2A5C;text-align:center;line-height:1.4;padding:6px;pointer-events:none;opacity:.7">Sad<br>Numb</span>
           </div>
           <div style="position:absolute;bottom:0;right:0;width:50%;height:50%;background:#F5EAD8;display:flex;align-items:center;justify-content:center">
-            <span style="font-size:11px;font-weight:500;color:#7A4A1A;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Anxious<br>Restless</span>
+            <span style="font-size:10px;font-weight:500;color:#7A4A1A;text-align:center;line-height:1.4;padding:6px;pointer-events:none;opacity:.7">Anxious<br>Restless</span>
           </div>
-          <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border2);opacity:.4;pointer-events:none"></div>
-          <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border2);opacity:.4;pointer-events:none"></div>
-          <div id="compass-dot" style="display:none;position:absolute;width:22px;height:22px;border-radius:50%;background:var(--terra);border:3px solid #fff;transform:translate(-50%,-50%);pointer-events:none"></div>
+          <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border2);opacity:.35;pointer-events:none"></div>
+          <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border2);opacity:.35;pointer-events:none"></div>
+          <div id="compass-dot" style="display:none;position:absolute;width:22px;height:22px;border-radius:50%;background:var(--terra);border:3px solid #fff;transform:translate(-50%,-50%);pointer-events:none;transition:left .05s,top .05s"></div>
         </div>
         <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">Buzzing</span>
       </div>
@@ -535,19 +533,25 @@ function initCompass(){
     dot.style.display='block';
     dot.style.left=cx+'px';
     dot.style.top=cy+'px';
-    const qx=cx/w>=0.5?'r':'l';
-    const qy=cy/h>=0.5?'b':'t';
+
+    compassNormX=cx/w;
+    compassNormY=cy/h;
+    const qx=compassNormX>=0.5?'r':'l';
+    const qy=compassNormY>=0.5?'b':'t';
     const q=qy+qx;
-    if(q!==compassQuadrant){compassQuadrant=q;showCompassResult(q);}
-    document.getElementById('compass-hint').textContent='Drag to adjust';
-    // dim non-active quadrants
+
+    // Dim non-active quadrants
     grid.querySelectorAll('div[style*="position:absolute"][style*="width:50%"]').forEach(qDiv=>{
       const isTop=qDiv.style.top==='0px'||qDiv.style.top==='0%'||qDiv.style.top.startsWith('0');
       const isLeft=qDiv.style.left==='0px'||qDiv.style.left==='0%'||qDiv.style.left.startsWith('0');
       const divQ=(isTop?'t':'b')+(isLeft?'l':'r');
-      qDiv.style.opacity=divQ===q?'1':'0.4';
+      qDiv.style.opacity=divQ===q?'1':'0.35';
       qDiv.style.transition='opacity .2s';
     });
+
+    compassQuadrant=q;
+    showCompassResult(compassNormX, compassNormY, q);
+    document.getElementById('compass-hint').textContent='Drag to adjust';
   }
 
   grid.addEventListener('mousedown',e=>{const r=grid.getBoundingClientRect();place(e.clientX-r.left,e.clientY-r.top);});
@@ -556,34 +560,45 @@ function initCompass(){
   grid.addEventListener('touchmove',e=>{e.preventDefault();const r=grid.getBoundingClientRect();const t=e.touches[0];place(t.clientX-r.left,t.clientY-r.top);},{passive:false});
 }
 
-function showCompassResult(q){
-  const data=COMPASS_QUADRANTS[q];
+function showCompassResult(normX, normY, q){
   const result=document.getElementById('compass-result');
   if(!result)return;
+  const closest=getClosestFeelings(normX, normY, 4);
+  const primary=closest[0];
+  const alts=closest.slice(1);
+  const ctx=QUADRANT_CONTEXT[q];
 
-  const feelingPills=data.feelings.map((f,fi)=>`
-    <span class="pill" style="background:${f.c};color:${f.tc};border-color:${f.tc}50"
-      onclick="selectCompassFeeling('${q}',${fi})">${f.f}</span>`).join('');
+  const altPills=alts.map((f,fi)=>{
+    const idx=COMPASS_FEELINGS.indexOf(f);
+    return `<span class="pill" style="background:${f.c};color:${f.tc};border-color:${f.tc}50;font-size:12px" onclick="selectCompassFeeling(${idx})">${f.f}</span>`;
+  }).join('');
+
+  const primaryIdx=COMPASS_FEELINGS.indexOf(primary);
 
   result.innerHTML=`
     <div class="card">
-      <p style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px">${data.label}</p>
-      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px">${data.desc}</p>
-      <p class="section-label" style="margin-bottom:8px">Which feels closest?</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">${feelingPills}</div>
+      <p style="font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--text3);text-transform:uppercase;margin-bottom:6px">${ctx.label}</p>
+      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px">${ctx.desc}</p>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:8px">We're hearing <strong style="color:var(--text)">${primary.f.toLowerCase()}</strong> — does that feel right?</p>
+      <div style="margin-bottom:14px">
+        <div style="background:${primary.c};border:1.5px solid ${primary.tc}40;border-radius:12px;padding:11px 14px;cursor:pointer;transition:all .15s;margin-bottom:8px" onclick="selectCompassFeeling(${primaryIdx})">
+          <div style="font-size:15px;font-weight:500;color:${primary.tc};margin-bottom:2px">${primary.f}</div>
+          <div style="font-size:12px;color:${primary.tc};opacity:.75">${primary.positive?'Tap to explore your life areas':'Tap to see what this might be asking for'}</div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin-bottom:7px;font-style:italic">Or closer to one of these?</p>
+        <div style="display:flex;flex-wrap:wrap;gap:7px">${altPills}</div>
+      </div>
       <button class="btn" style="font-size:13px;width:100%;justify-content:center" onclick="showNeedTalk('')">Not sure — help me find what's underneath</button>
     </div>`;
   result.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function selectCompassFeeling(q, fi){
-  const data=COMPASS_QUADRANTS[q];
-  const f=data.feelings[fi];
-  const isPositive=data.positive;
-  appState.feeling=f.f;appState.feelingPositive=isPositive;
+function selectCompassFeeling(idx){
+  const f=COMPASS_FEELINGS[idx];
+  appState.feeling=f.f;appState.feelingPositive=f.positive||false;
   const result=document.getElementById('compass-result');
   if(!result)return;
-  if(isPositive){
+  if(f.positive){
     result.innerHTML=`<div class="positive-banner">
       <div class="pb-title">That's worth honouring.</div>
       <div class="pb-body">When we feel <strong>${f.f.toLowerCase()}</strong>, our needs are being met. The life areas check-in can show where you're thriving — and whether anything is quietly calling for more tending.</div>
