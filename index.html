@@ -415,50 +415,172 @@ function showTab(id,btn){
   if(id==='saved')renderSaved();
 }
 
+// ── COMPASS DATA ──────────────────────────────────────────────────────────────
+const COMPASS_QUADRANTS={
+  tl:{
+    label:'Light but low energy',
+    desc:'Things feel manageable right now, but you\'re not running on much. A quiet space — maybe peaceful, maybe gently empty.',
+    positive:true,
+    feelings:[
+      {f:'Calm',      c:'#EAF0E8',tc:'#2A4A2A',positive:true},
+      {f:'Content',   c:'#F5F0E8',tc:'#5C4020',positive:true},
+      {f:'Peaceful',  c:'#E1F5EE',tc:'#085041',positive:true},
+      {f:'Grounded',  c:'#F5EAD8',tc:'#5C3010',positive:true},
+    ]
+  },
+  tr:{
+    label:'Light and energised',
+    desc:'You have energy and things feel relatively open. Even here, something may be worth tending.',
+    positive:true,
+    feelings:[
+      {f:'Joyful',    c:'#EAF3DE',tc:'#27500A',positive:true},
+      {f:'Hopeful',   c:'#EDE8F5',tc:'#2A1A5C',positive:true},
+      {f:'Energised', c:'#EAF0E8',tc:'#2A4A2A',positive:true},
+      {f:'Grateful',  c:'#E1F5EE',tc:'#085041',positive:true},
+    ]
+  },
+  bl:{
+    label:'Heavy and low energy',
+    desc:'Something is weighing on you and you don\'t have much left. This is the hardest place to be — gentle is the word.',
+    positive:false,
+    feelings:[
+      {f:'Sad',          c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Understanding','Meaning'],nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like.','A sense that this difficulty means something.']},
+      {f:'Numb',         c:'#EEEEED',tc:'#3A3A30',needs:['Stimulation','Joy','Purpose'],nd:['Something that genuinely engages you.','A moment of real delight, however small.','A reason that makes things feel worth doing.']},
+      {f:'Disconnected', c:'#E8EFF5',tc:'#1A3A5C',needs:['Belonging','Warmth','Presence'],nd:['A sense of being part of something.','Genuine human warmth — felt, not just present.','Being fully here, in this moment.']},
+      {f:'Lonely',       c:'#E8EFF5',tc:'#1A3A5C',needs:['Connection','Being seen','Intimacy'],nd:['Genuine closeness — not just being in contact.','Someone really getting who you are.','Real depth — emotional or physical.']},
+    ]
+  },
+  br:{
+    label:'Heavy but wired',
+    desc:'There\'s energy, but it\'s not comfortable energy. Your system is running hot — something is asking for attention.',
+    positive:false,
+    feelings:[
+      {f:'Anxious',     c:'#F5EAD8',tc:'#7A4A1A',needs:['Safety','Clarity','Reassurance'],nd:['A wish for things to feel more settled.','To see the situation clearly.','To hear that things will be okay.']},
+      {f:'Overwhelmed', c:'#F5EDE8',tc:'#5C2A1A',needs:['Support','Simplicity','Rest'],nd:['Someone to share the weight with.','Less on your plate right now.','Time to genuinely recover.']},
+      {f:'Restless',    c:'#EAF0E8',tc:'#2A4A2A',needs:['Movement','Freedom','Creativity'],nd:['Your body wanting to be used and stretched.','Room to move in your own direction.','Making or expressing something.']},
+      {f:'Frustrated',  c:'#F5EAD8',tc:'#7A3A10',needs:['Progress','Autonomy','Understanding'],nd:['A sense that things are actually moving.','Real say over what you do.','Someone getting why this matters.']},
+    ]
+  },
+};
+
 // ── DISCOVER ──────────────────────────────────────────────────────────────────
+let compassPos=null;
+let compassQuadrant=null;
+
 function startWheel(){
-  const div=document.getElementById('discover-tool');div.innerHTML='';
-  const card=document.createElement('div');card.className='card';card.style.marginTop='4px';
-  card.innerHTML=`<p class="section-label" style="margin-bottom:10px">How are you feeling right now?</p>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.5">Tap the feeling that's most present. We'll trace it to what it's asking for.</p>
-    <div class="feelings-group-label">Difficult feelings</div>
-    <div class="feeling-pills" id="difficult-pills"></div>
-    <div class="feelings-group-label" style="margin-top:14px">Positive feelings</div>
-    <div class="feeling-pills" id="positive-pills"></div>
-    <div id="feeling-response"></div>`;
-  div.appendChild(card);
-  DIFFICULT_FEELINGS.forEach((f,i)=>{
-    const p=document.createElement('span');p.className='pill';p.textContent=f.f;
-    p.style.cssText=`background:${f.c};color:${f.tc};border-color:${f.tc}50`;
-    p.onclick=()=>selectFeeling(i,p,false);
-    document.getElementById('difficult-pills').appendChild(p);
-  });
-  POSITIVE_FEELINGS.forEach((f,i)=>{
-    const p=document.createElement('span');p.className='pill';p.textContent=f.f;
-    p.style.cssText=`background:${f.c};color:${f.tc};border-color:${f.tc}50`;
-    p.onclick=()=>selectFeeling(i,p,true);
-    document.getElementById('positive-pills').appendChild(p);
-  });
+  const div=document.getElementById('discover-tool');
+  div.innerHTML='';
+  const wrap=document.createElement('div');
+  wrap.style.marginTop='4px';
+  wrap.innerHTML=`
+    <div class="card" style="margin-bottom:0">
+      <p class="section-label" style="margin-bottom:8px">What are you feeling right now?</p>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5">Tap anywhere in the space below — no right answer, just go with your gut.</p>
+      <div style="text-align:center;font-size:11px;font-weight:500;letter-spacing:.05em;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Light & easy</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;writing-mode:horizontal-tb;white-space:nowrap">Depleted</span>
+        <div id="compass-grid" style="flex:1;aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:crosshair;touch-action:none;position:relative;border:1px solid var(--border)">
+          <div style="position:absolute;top:0;left:0;width:50%;height:50%;background:#EAF0E8;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:11px;font-weight:500;color:#3A6040;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Calm<br>Peaceful</span>
+          </div>
+          <div style="position:absolute;top:0;right:0;width:50%;height:50%;background:#EAF3DE;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:11px;font-weight:500;color:#2A4A20;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Joyful<br>Hopeful</span>
+          </div>
+          <div style="position:absolute;bottom:0;left:0;width:50%;height:50%;background:#EDE8F5;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:11px;font-weight:500;color:#3A2A5C;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Sad<br>Numb</span>
+          </div>
+          <div style="position:absolute;bottom:0;right:0;width:50%;height:50%;background:#F5EAD8;display:flex;align-items:center;justify-content:center">
+            <span style="font-size:11px;font-weight:500;color:#7A4A1A;text-align:center;line-height:1.4;padding:6px;pointer-events:none">Anxious<br>Restless</span>
+          </div>
+          <div style="position:absolute;top:50%;left:0;right:0;height:1px;background:var(--border2);opacity:.4;pointer-events:none"></div>
+          <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--border2);opacity:.4;pointer-events:none"></div>
+          <div id="compass-dot" style="display:none;position:absolute;width:22px;height:22px;border-radius:50%;background:var(--terra);border:3px solid #fff;transform:translate(-50%,-50%);pointer-events:none"></div>
+        </div>
+        <span style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap">Buzzing</span>
+      </div>
+      <div style="text-align:center;font-size:11px;font-weight:500;letter-spacing:.05em;color:var(--text3);text-transform:uppercase;margin-bottom:4px">Heavy & hard</div>
+      <p style="font-size:11px;color:var(--text3);text-align:center;font-style:italic" id="compass-hint">Tap or drag to place yourself</p>
+    </div>
+    <div id="compass-result" style="margin-top:10px"></div>`;
+  div.appendChild(wrap);
+  initCompass();
 }
 
-function selectFeeling(i,el,isPositive){
-  document.querySelectorAll('#difficult-pills .pill,#positive-pills .pill').forEach(p=>p.style.outline='');
-  const f=isPositive?POSITIVE_FEELINGS[i]:DIFFICULT_FEELINGS[i];
-  el.style.outline=`2px solid ${f.tc}`;
-  appState.feeling=f.f;appState.feelingPositive=isPositive;
-  const resp=document.getElementById('feeling-response');
-  if(isPositive){
-    resp.innerHTML=`<div class="positive-banner"><div class="pb-title">That's worth honouring.</div>
-      <div class="pb-body">When we feel <strong>${f.f.toLowerCase()}</strong>, our needs are being met. The life areas check-in can show where you're thriving — and whether anything is quietly calling for more tending.</div>
-      <button class="btn btn-sage" style="width:100%;justify-content:center" onclick="goToLifeFromPositive()">Check in on your life areas →</button></div>`;
-  } else {
-    const df=DIFFICULT_FEELINGS[i];
-    resp.innerHTML=`<div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
-      <p style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">When we feel <strong style="color:var(--text)">${df.f.toLowerCase()}</strong>, something in us is asking to be tended to. Which of these feels closest to what's underneath?</p>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px">${df.needs.map((n,ni)=>`<span class="pill" style="background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)" onclick="goToNeedShortlist('${n}','${df.nd[ni].replace(/'/g,"\\'")}')">${n}</span>`).join('')}</div>
-      <button class="btn" style="font-size:13px;width:100%;justify-content:center" onclick="showNeedTalk('')">Not sure — help me find what's underneath</button></div>`;
+function initCompass(){
+  const grid=document.getElementById('compass-grid');
+  if(!grid)return;
+
+  function place(x,y){
+    const rect=grid.getBoundingClientRect();
+    const w=rect.width,h=rect.height;
+    const cx=Math.max(11,Math.min(w-11,x));
+    const cy=Math.max(11,Math.min(h-11,y));
+    const dot=document.getElementById('compass-dot');
+    dot.style.display='block';
+    dot.style.left=cx+'px';
+    dot.style.top=cy+'px';
+    const qx=cx/w>=0.5?'r':'l';
+    const qy=cy/h>=0.5?'b':'t';
+    const q=qy+qx;
+    if(q!==compassQuadrant){compassQuadrant=q;showCompassResult(q);}
+    document.getElementById('compass-hint').textContent='Drag to adjust';
+    // dim non-active quadrants
+    grid.querySelectorAll('div[style*="position:absolute"][style*="width:50%"]').forEach(qDiv=>{
+      const isTop=qDiv.style.top==='0px'||qDiv.style.top==='0%'||qDiv.style.top.startsWith('0');
+      const isLeft=qDiv.style.left==='0px'||qDiv.style.left==='0%'||qDiv.style.left.startsWith('0');
+      const divQ=(isTop?'t':'b')+(isLeft?'l':'r');
+      qDiv.style.opacity=divQ===q?'1':'0.4';
+      qDiv.style.transition='opacity .2s';
+    });
   }
-  resp.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  grid.addEventListener('mousedown',e=>{const r=grid.getBoundingClientRect();place(e.clientX-r.left,e.clientY-r.top);});
+  grid.addEventListener('mousemove',e=>{if(e.buttons!==1)return;const r=grid.getBoundingClientRect();place(e.clientX-r.left,e.clientY-r.top);});
+  grid.addEventListener('touchstart',e=>{e.preventDefault();const r=grid.getBoundingClientRect();const t=e.touches[0];place(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+  grid.addEventListener('touchmove',e=>{e.preventDefault();const r=grid.getBoundingClientRect();const t=e.touches[0];place(t.clientX-r.left,t.clientY-r.top);},{passive:false});
+}
+
+function showCompassResult(q){
+  const data=COMPASS_QUADRANTS[q];
+  const result=document.getElementById('compass-result');
+  if(!result)return;
+
+  const feelingPills=data.feelings.map((f,fi)=>`
+    <span class="pill" style="background:${f.c};color:${f.tc};border-color:${f.tc}50"
+      onclick="selectCompassFeeling('${q}',${fi})">${f.f}</span>`).join('');
+
+  result.innerHTML=`
+    <div class="card">
+      <p style="font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px">${data.label}</p>
+      <p style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:14px">${data.desc}</p>
+      <p class="section-label" style="margin-bottom:8px">Which feels closest?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">${feelingPills}</div>
+      <button class="btn" style="font-size:13px;width:100%;justify-content:center" onclick="showNeedTalk('')">Not sure — help me find what's underneath</button>
+    </div>`;
+  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function selectCompassFeeling(q, fi){
+  const data=COMPASS_QUADRANTS[q];
+  const f=data.feelings[fi];
+  const isPositive=data.positive;
+  appState.feeling=f.f;appState.feelingPositive=isPositive;
+  const result=document.getElementById('compass-result');
+  if(!result)return;
+  if(isPositive){
+    result.innerHTML=`<div class="positive-banner">
+      <div class="pb-title">That's worth honouring.</div>
+      <div class="pb-body">When we feel <strong>${f.f.toLowerCase()}</strong>, our needs are being met. The life areas check-in can show where you're thriving — and whether anything is quietly calling for more tending.</div>
+      <button class="btn btn-sage" style="width:100%;justify-content:center" onclick="goToLifeFromPositive()">Check in on your life areas →</button>
+    </div>`;
+  } else {
+    result.innerHTML=`<div class="card">
+      <p style="font-size:13px;color:var(--text2);margin-bottom:10px;line-height:1.5">When we feel <strong style="color:var(--text)">${f.f.toLowerCase()}</strong>, something in us is asking to be tended to. Which of these feels closest to what's underneath?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px">${f.needs.map((n,ni)=>`<span class="pill" style="background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)" onclick="goToNeedShortlist('${n}','${f.nd[ni].replace(/'/g,"\\'")}')">${n}</span>`).join('')}</div>
+      <button class="btn" style="font-size:13px;width:100%;justify-content:center" onclick="showNeedTalk('')">Not sure — help me find what's underneath</button>
+    </div>`;
+  }
+  result.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
 function goToLifeFromPositive(){appState.lifeFromPositive=true;startLife();showTab('discover');}
