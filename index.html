@@ -422,10 +422,14 @@ const COMPASS_QUADRANTS={
     desc:'Things feel manageable right now, but you\'re not running on much. A quiet space — maybe peaceful, maybe gently empty.',
     positive:true,
     feelings:[
-      {f:'Calm',      c:'#EAF0E8',tc:'#2A4A2A',positive:true},
-      {f:'Content',   c:'#F5F0E8',tc:'#5C4020',positive:true},
-      {f:'Peaceful',  c:'#E1F5EE',tc:'#085041',positive:true},
-      {f:'Grounded',  c:'#F5EAD8',tc:'#5C3010',positive:true},
+      {f:'Calm',        c:'#EAF0E8',tc:'#2A4A2A',positive:true},
+      {f:'Content',     c:'#F5F0E8',tc:'#5C4020',positive:true},
+      {f:'Peaceful',    c:'#E1F5EE',tc:'#085041',positive:true},
+      {f:'Grounded',    c:'#F5EAD8',tc:'#5C3010',positive:true},
+      {f:'Quiet',       c:'#EDE8F5',tc:'#2A1A5C',positive:true},
+      {f:'Still',       c:'#E8EFF5',tc:'#1A3A5C',positive:true},
+      {f:'Settled',     c:'#EAF3DE',tc:'#1A4A10',positive:true},
+      {f:'At ease',     c:'#F5F0E8',tc:'#5C3010',positive:true},
     ]
   },
   tr:{
@@ -433,10 +437,14 @@ const COMPASS_QUADRANTS={
     desc:'You have energy and things feel relatively open. Even here, something may be worth tending.',
     positive:true,
     feelings:[
-      {f:'Joyful',    c:'#EAF3DE',tc:'#27500A',positive:true},
-      {f:'Hopeful',   c:'#EDE8F5',tc:'#2A1A5C',positive:true},
-      {f:'Energised', c:'#EAF0E8',tc:'#2A4A2A',positive:true},
-      {f:'Grateful',  c:'#E1F5EE',tc:'#085041',positive:true},
+      {f:'Joyful',      c:'#EAF3DE',tc:'#27500A',positive:true},
+      {f:'Hopeful',     c:'#EDE8F5',tc:'#2A1A5C',positive:true},
+      {f:'Energised',   c:'#EAF0E8',tc:'#2A4A2A',positive:true},
+      {f:'Grateful',    c:'#E1F5EE',tc:'#085041',positive:true},
+      {f:'Inspired',    c:'#EDE8F5',tc:'#3A2A5C',positive:true},
+      {f:'Curious',     c:'#FAEEDA',tc:'#5C3A10',positive:true},
+      {f:'Connected',   c:'#E8EFF5',tc:'#1A3A5C',positive:true},
+      {f:'Alive',       c:'#EAF3DE',tc:'#1A4A10',positive:true},
     ]
   },
   bl:{
@@ -444,10 +452,14 @@ const COMPASS_QUADRANTS={
     desc:'Something is weighing on you and you don\'t have much left. This is the hardest place to be — gentle is the word.',
     positive:false,
     feelings:[
-      {f:'Sad',          c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Understanding','Meaning'],nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like.','A sense that this difficulty means something.']},
-      {f:'Numb',         c:'#EEEEED',tc:'#3A3A30',needs:['Stimulation','Joy','Purpose'],nd:['Something that genuinely engages you.','A moment of real delight, however small.','A reason that makes things feel worth doing.']},
-      {f:'Disconnected', c:'#E8EFF5',tc:'#1A3A5C',needs:['Belonging','Warmth','Presence'],nd:['A sense of being part of something.','Genuine human warmth — felt, not just present.','Being fully here, in this moment.']},
-      {f:'Lonely',       c:'#E8EFF5',tc:'#1A3A5C',needs:['Connection','Being seen','Intimacy'],nd:['Genuine closeness — not just being in contact.','Someone really getting who you are.','Real depth — emotional or physical.']},
+      {f:'Sad',         c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Understanding','Meaning'],nd:['Warmth and softness when things are hard.','Someone truly getting what this feels like.','A sense that this difficulty means something.']},
+      {f:'Numb',        c:'#EEEEED',tc:'#3A3A30',needs:['Stimulation','Joy','Purpose'],nd:['Something that genuinely engages you.','A moment of real delight, however small.','A reason that makes things feel worth doing.']},
+      {f:'Disconnected',c:'#E8EFF5',tc:'#1A3A5C',needs:['Belonging','Warmth','Presence'],nd:['A sense of being part of something.','Genuine human warmth — felt, not just present.','Being fully here, in this moment.']},
+      {f:'Lonely',      c:'#E8EFF5',tc:'#1A3A5C',needs:['Connection','Being seen','Intimacy'],nd:['Genuine closeness — not just being in contact.','Someone really getting who you are.','Real depth — emotional or physical.']},
+      {f:'Hopeless',    c:'#EDE8F5',tc:'#3A2A5C',needs:['Hope','Meaning','Support'],nd:['A felt sense that things can still shift.','Something that makes the effort feel worth it.','Someone to sit with you in it.']},
+      {f:'Exhausted',   c:'#F1EFE8',tc:'#3A3020',needs:['Rest','Care','Nourishment'],nd:['Permission to stop — not push through, just stop.','Attending to yourself as you would a friend.','Being properly fed — physically and emotionally.']},
+      {f:'Empty',       c:'#EEEEED',tc:'#3A3A30',needs:['Meaning','Stimulation','Connection'],nd:['Something that orients you toward what matters.','Something that genuinely wakes you up.','A real exchange with another person.']},
+      {f:'Grief',       c:'#EDE8F5',tc:'#2A1A5C',needs:['Comfort','Acknowledgement','Presence'],nd:['Warmth without the pressure to feel better.','Someone witnessing what you\'re carrying.','A quiet presence — not fixing, just being there.']},
     ]
   },
   br:{
@@ -459,6 +471,10 @@ const COMPASS_QUADRANTS={
       {f:'Overwhelmed', c:'#F5EDE8',tc:'#5C2A1A',needs:['Support','Simplicity','Rest'],nd:['Someone to share the weight with.','Less on your plate right now.','Time to genuinely recover.']},
       {f:'Restless',    c:'#EAF0E8',tc:'#2A4A2A',needs:['Movement','Freedom','Creativity'],nd:['Your body wanting to be used and stretched.','Room to move in your own direction.','Making or expressing something.']},
       {f:'Frustrated',  c:'#F5EAD8',tc:'#7A3A10',needs:['Progress','Autonomy','Understanding'],nd:['A sense that things are actually moving.','Real say over what you do.','Someone getting why this matters.']},
+      {f:'Irritable',   c:'#F5E8E8',tc:'#5C1A1A',needs:['Rest','Respect','Space'],nd:['Real recovery — not scrolling, just stopping.','Your contributions and presence mattering.','Room to breathe without demands.']},
+      {f:'Scared',      c:'#F5E8F0',tc:'#5C1A3A',needs:['Safety','Predictability','Trust'],nd:['The ground feeling solid beneath you.','Knowing roughly what\'s coming.','People or situations you can rely on.']},
+      {f:'Panicked',    c:'#F5EAD8',tc:'#7A2A1A',needs:['Safety','Grounding','Reassurance'],nd:['Something to anchor you to right now.','A felt sense that you are okay in this moment.','A calm presence or voice that steadies you.']},
+      {f:'On edge',     c:'#F5EDE8',tc:'#5C3A1A',needs:['Safety','Rest','Clarity'],nd:['The background threat feeling like it can ease.','Your nervous system being allowed to settle.','Understanding what\'s actually happening.']},
     ]
   },
 };
@@ -691,8 +707,27 @@ async function submitTalk(area){
     document.getElementById('talk-footer').style.display='flex';
   }catch(e){
     document.getElementById('talk-typing').style.display='none';
-    const eb=document.createElement('div');eb.className='q-bubble';eb.textContent='Something went wrong — please try again.';chat.appendChild(eb);
-    document.getElementById('talk-input').style.display='block';
+    // Graceful fallback — never dead-end the user, offer the needs shortlist directly
+    const eb=document.createElement('div');
+    eb.className='q-bubble';
+    eb.textContent='We couldn\'t connect right now. Here are some needs that often sit underneath — see if any feel true.';
+    chat.appendChild(eb);
+    const fallbackNeeds=[
+      {n:'Rest',d:'Permission to stop — not push through, just stop.'},
+      {n:'Connection',d:'Genuine closeness — not just being in contact with people.'},
+      {n:'Safety',d:'A wish for things to feel more settled and predictable.'},
+      {n:'Clarity',d:'To see what\'s actually happening rather than through fog.'},
+      {n:'Comfort',d:'Warmth and softness — to be held rather than fixed.'},
+      {n:'Purpose',d:'A sense that what you\'re doing and feeling matters.'},
+    ];
+    const fb=document.createElement('div');
+    fb.style.cssText='margin-top:8px';
+    fb.innerHTML=`<p class="section-label" style="margin-bottom:8px">Which resonates?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px">
+        ${fallbackNeeds.map(n=>`<span class="pill" style="background:var(--sage-light);color:var(--sage);border-color:var(--sage-mid)" onclick="goToNeedShortlist('${n.n}','${n.d}')">${n.n}</span>`).join('')}
+      </div>`;
+    document.getElementById('talk-result').appendChild(fb);
+    document.getElementById('talk-input').style.display='none';
   }
 }
 
