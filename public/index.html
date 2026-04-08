@@ -403,6 +403,8 @@ let appState={
 
 // Rituals state
 let myRituals=[]; // {text, called, color, stroke, tc}
+let supabase=null;
+let currentUser=null;
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
@@ -1036,8 +1038,6 @@ showScreen('s-splash');
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 // ── SUPABASE AUTH & PERSISTENCE ───────────────────────────────────────────────
-let supabase = null;
-let currentUser = null;
 
 function initSupabase(){
   try {
