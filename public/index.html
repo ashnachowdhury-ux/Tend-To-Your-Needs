@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tend to Your Needs — A simple path to self-care</title>
 <meta name="description" content="Understand what you need. Make a gentle plan. Let it find a place in your day.">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#FAF7F2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Tend">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'));}</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -184,8 +191,8 @@ textarea:focus{outline:none;border-color:var(--terra)}
     </div>
     <div class="splash-wordmark">Tend to Your Needs</div>
     <div class="splash-tagline">A simple path to self-care</div>
-    <p class="splash-desc" style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:6px">Something brought you here today.</p>
-    <p class="splash-desc">Whatever it is — we're here. Let's find out what you need.</p>
+    <p class="splash-desc" id="splash-headline" style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:6px">Something brought you here today.</p>
+    <p class="splash-desc" id="splash-sub">Whatever it is — we're here. Let's find out what you need.</p>
     <button class="google-btn" onclick="signInWithGoogle()">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
@@ -196,6 +203,23 @@ textarea:focus{outline:none;border-color:var(--terra)}
       Continue with Google
     </button>
     <p class="splash-note">Your reflections are private and only ever yours.</p>
+  </div>
+</div>
+
+<!-- RETURNING USER WELCOME -->
+<div id="s-welcome" class="screen">
+  <div class="splash">
+    <div class="splash-leaves">
+      <div class="splash-leaf" style="width:7px;height:7px;background:var(--sand)"></div>
+      <div class="splash-leaf" style="width:9px;height:9px;background:var(--sage-mid)"></div>
+      <div class="splash-leaf" style="width:13px;height:13px;background:var(--sage)"></div>
+      <div class="splash-leaf" style="width:9px;height:9px;background:var(--sage-mid)"></div>
+      <div class="splash-leaf" style="width:7px;height:7px;background:var(--sand)"></div>
+    </div>
+    <div class="splash-wordmark">Tend to Your Needs</div>
+    <p id="welcome-greeting" style="font-size:22px;font-weight:500;color:var(--text);margin:20px 0 8px;line-height:1.3"></p>
+    <p id="welcome-sub" style="font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:32px;max-width:280px"></p>
+    <button class="btn btn-terra" style="padding:13px 28px;font-size:14px;border-radius:12px" onclick="enterApp()">Begin tending →</button>
   </div>
 </div>
 
@@ -1060,14 +1084,14 @@ async function fetchSupabaseKey(){
     const {data:{session}} = await _sb.auth.getSession();
     if(session){
       currentUser = session.user;
-      enterApp();
+      showWelcome(currentUser);
       loadUserData();
     }
     // Listen for auth changes
     _sb.auth.onAuthStateChange(async (event, session) => {
       if(event === 'SIGNED_IN' && session){
         currentUser = session.user;
-        enterApp();
+        showWelcome(currentUser);
         loadUserData();
       } else if(event === 'SIGNED_OUT'){
         currentUser = null;
@@ -1105,6 +1129,37 @@ async function signInWithGoogle(){
 async function signOut(){
   if(_sb) await _sb.auth.signOut();
   else showScreen('s-splash');
+}
+
+function showWelcome(user){
+  const hour = new Date().getHours();
+  const timeOfDay = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+  const firstName = (user.user_metadata?.full_name || user.email || '').split(' ')[0];
+  const name = firstName ? firstName : null;
+
+  const greetings = {
+    morning:   ['Good morning.', 'Good morning.', 'A new morning.'],
+    afternoon: ['Good afternoon.', 'Good afternoon.', 'An afternoon moment.'],
+    evening:   ['Good evening.', 'A quiet evening.', 'Good evening.'],
+  };
+  const subs = [
+    'What are you tending to today?',
+    'What's present in you right now?',
+    'What is asking for your attention today?',
+    'What needs a little care today?',
+  ];
+
+  const greetingList = greetings[timeOfDay];
+  const greeting = greetingList[Math.floor(Math.random() * greetingList.length)];
+  const sub = subs[Math.floor(Math.random() * subs.length)];
+
+  const greetingEl = document.getElementById('welcome-greeting');
+  const subEl = document.getElementById('welcome-sub');
+
+  if(greetingEl) greetingEl.textContent = name ? `${greeting.replace('.', ',')} ${name}.` : greeting;
+  if(subEl) subEl.textContent = sub;
+
+  showScreen('s-welcome');
 }
 
 // ── LOAD USER DATA ────────────────────────────────────────────────────────────
