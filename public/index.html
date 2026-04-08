@@ -186,7 +186,7 @@ textarea:focus{outline:none;border-color:var(--terra)}
     <div class="splash-tagline">A simple path to self-care</div>
     <p class="splash-desc" style="font-size:16px;font-weight:500;color:var(--text);margin-bottom:6px">Something brought you here today.</p>
     <p class="splash-desc">Whatever it is — we're here. Let's find out what you need.</p>
-    <button class="google-btn" onclick="enterApp()">
+    <button class="google-btn" onclick="signInWithGoogle()">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
         <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"/>
@@ -1032,6 +1032,167 @@ function scheduleGCal(pi){
 }
 
 showScreen('s-splash');
+initSupabase();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+// ── SUPABASE AUTH & PERSISTENCE ───────────────────────────────────────────────
+let supabase = null;
+let currentUser = null;
+
+function initSupabase(){
+  try {
+    const SUPABASE_URL = 'https://bocvhxhmkjwtsowzlazd.supabase.co';
+    const SUPABASE_ANON_KEY = document.currentScript ? null : null; // loaded from env via api
+    // We load keys from a lightweight endpoint to keep them server-side
+    fetchSupabaseKey();
+  } catch(e) {
+    console.warn('Supabase init deferred');
+  }
+}
+
+async function fetchSupabaseKey(){
+  try {
+    const res = await fetch('/api/config');
+    if(!res.ok) throw new Error('no config');
+    const {url, key} = await res.json();
+    supabase = window.supabase.createClient(url, key);
+    // Check if returning from OAuth redirect
+    const {data:{session}} = await supabase.auth.getSession();
+    if(session){
+      currentUser = session.user;
+      enterApp();
+      loadUserData();
+    }
+    // Listen for auth changes
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if(event === 'SIGNED_IN' && session){
+        currentUser = session.user;
+        enterApp();
+        loadUserData();
+      } else if(event === 'SIGNED_OUT'){
+        currentUser = null;
+        showScreen('s-splash');
+      }
+    });
+  } catch(e) {
+    // Supabase unavailable — run without auth (session only)
+    console.warn('Running without Supabase:', e.message);
+  }
+}
+
+async function signInWithGoogle(){
+  if(!supabase){
+    // Fallback: just enter app without auth
+    enterApp();
+    return;
+  }
+  const {error} = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.origin }
+  });
+  if(error) { console.error(error); enterApp(); }
+}
+
+async function signOut(){
+  if(supabase) await supabase.auth.signOut();
+  else showScreen('s-splash');
+}
+
+// ── LOAD USER DATA ────────────────────────────────────────────────────────────
+async function loadUserData(){
+  if(!supabase || !currentUser) return;
+  try {
+    // Load saved plans
+    const {data:plans} = await supabase
+      .from('plans')
+      .select('*')
+      .order('created_at', {ascending:false});
+    if(plans && plans.length){
+      appState.savedPlans = plans.map(p=>({
+        need: p.need, area: p.area, feeling: p.feeling,
+        items: p.items||[], scheduled: p.scheduled||false,
+        date: new Date(p.created_at).toLocaleDateString('en-GB',{day:'numeric',month:'short'}),
+        id: p.id,
+      }));
+    }
+    // Load rituals
+    const {data:rituals} = await supabase
+      .from('rituals')
+      .select('*')
+      .order('created_at', {ascending:false});
+    if(rituals && rituals.length){
+      myRituals = rituals.map(r=>({
+        text: r.text, called: r.called||false,
+        color: getCategoryColor(r.category).color,
+        stroke: getCategoryColor(r.category).stroke,
+        tc: getCategoryColor(r.category).tc,
+        id: r.id,
+      }));
+      renderMyRituals();
+    }
+  } catch(e){ console.warn('Could not load user data:', e); }
+}
+
+function getCategoryColor(categoryName){
+  const cat = RITUAL_CATEGORIES.find(c=>c.name===categoryName);
+  return cat || {color:'#EAF0E8',stroke:'#7A9E7E',tc:'#2A4A2A'};
+}
+
+// ── SAVE PLAN TO SUPABASE ─────────────────────────────────────────────────────
+const _origSavePlan = savePlan;
+savePlan = async function(){
+  if(!appState.planItems.length) return;
+  const isFirstPlan = appState.savedPlans.length === 0;
+  const planData = {
+    need: appState.need, area: appState.area||null,
+    feeling: appState.feeling||null, items: [...appState.planItems],
+    scheduled: false,
+  };
+  appState.savedPlans.unshift({
+    ...planData,
+    date: new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short'}),
+  });
+  appState.planItems = []; appState.lifeFromPositive = false;
+  showTab('saved');
+  if(isFirstPlan && myRituals.length===0) setTimeout(()=>showRitualOnboarding(),400);
+  // Persist to Supabase
+  if(supabase && currentUser){
+    try {
+      await supabase.from('plans').insert({...planData, user_id: currentUser.id});
+    } catch(e){ console.warn('Could not save plan:', e); }
+  }
+};
+
+// ── SAVE RITUAL TO SUPABASE ───────────────────────────────────────────────────
+const _origAddRitual = addRitual;
+addRitual = async function(text, called, cat, ci){
+  if(myRituals.some(r=>r.text===text)) return;
+  myRituals.push({text, called, color:cat.color, stroke:cat.stroke, tc:cat.tc});
+  renderMyRituals();
+  renderCatPills(cat, ci);
+  flashConfirm(called);
+  if(supabase && currentUser){
+    try {
+      await supabase.from('rituals').insert({
+        user_id: currentUser.id, text, called, category: cat.name,
+      });
+    } catch(e){ console.warn('Could not save ritual:', e); }
+  }
+};
+
+// ── REMOVE RITUAL FROM SUPABASE ───────────────────────────────────────────────
+const _origRemoveRitual = removeRitual;
+removeRitual = async function(text){
+  myRituals = myRituals.filter(r=>r.text!==text);
+  renderMyRituals();
+  RITUAL_CATEGORIES.forEach((cat,ci)=>renderCatPills(cat,ci));
+  if(supabase && currentUser){
+    try {
+      await supabase.from('rituals').delete().eq('user_id', currentUser.id).eq('text', text);
+    } catch(e){ console.warn('Could not delete ritual:', e); }
+  }
+};
 </script>
 </body>
 </html>
