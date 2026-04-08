@@ -403,7 +403,7 @@ let appState={
 
 // Rituals state
 let myRituals=[]; // {text, called, color, stroke, tc}
-let supabase=null;
+let _sb=null;
 let currentUser=null;
 
 // ── NAV ───────────────────────────────────────────────────────────────────────
@@ -1055,16 +1055,16 @@ async function fetchSupabaseKey(){
     const res = await fetch('/api/config');
     if(!res.ok) throw new Error('no config');
     const {url, key} = await res.json();
-    supabase = window.supabase.createClient(url, key);
+    _sb = window.supabase.createClient(url, key);
     // Check if returning from OAuth redirect
-    const {data:{session}} = await supabase.auth.getSession();
+    const {data:{session}} = await _sb.auth.getSession();
     if(session){
       currentUser = session.user;
       enterApp();
       loadUserData();
     }
     // Listen for auth changes
-    supabase.auth.onAuthStateChange(async (event, session) => {
+    _sb.auth.onAuthStateChange(async (event, session) => {
       if(event === 'SIGNED_IN' && session){
         currentUser = session.user;
         enterApp();
@@ -1082,20 +1082,20 @@ async function fetchSupabaseKey(){
 
 async function signInWithGoogle(){
   // If supabase not ready yet, wait up to 3 seconds for it
-  if(!supabase){
+  if(!_sb){
     const btn = document.querySelector('.google-btn');
     if(btn){ btn.textContent = 'Connecting...'; btn.disabled = true; }
     for(let i=0; i<30; i++){
       await new Promise(r=>setTimeout(r,100));
-      if(supabase) break;
+      if(_sb) break;
     }
     if(btn){ btn.disabled = false; }
   }
-  if(!supabase){
+  if(!_sb){
     enterApp();
     return;
   }
-  const {error} = await supabase.auth.signInWithOAuth({
+  const {error} = await _sb.auth.signInWithOAuth({
     provider: 'google',
     options: { redirectTo: window.location.origin }
   });
@@ -1103,16 +1103,16 @@ async function signInWithGoogle(){
 }
 
 async function signOut(){
-  if(supabase) await supabase.auth.signOut();
+  if(_sb) await _sb.auth.signOut();
   else showScreen('s-splash');
 }
 
 // ── LOAD USER DATA ────────────────────────────────────────────────────────────
 async function loadUserData(){
-  if(!supabase || !currentUser) return;
+  if(!_sb || !currentUser) return;
   try {
     // Load saved plans
-    const {data:plans} = await supabase
+    const {data:plans} = await _sb
       .from('plans')
       .select('*')
       .order('created_at', {ascending:false});
@@ -1125,7 +1125,7 @@ async function loadUserData(){
       }));
     }
     // Load rituals
-    const {data:rituals} = await supabase
+    const {data:rituals} = await _sb
       .from('rituals')
       .select('*')
       .order('created_at', {ascending:false});
@@ -1165,9 +1165,9 @@ savePlan = async function(){
   showTab('saved');
   if(isFirstPlan && myRituals.length===0) setTimeout(()=>showRitualOnboarding(),400);
   // Persist to Supabase
-  if(supabase && currentUser){
+  if(_sb && currentUser){
     try {
-      await supabase.from('plans').insert({...planData, user_id: currentUser.id});
+      await _sb.from('plans').insert({...planData, user_id: currentUser.id});
     } catch(e){ console.warn('Could not save plan:', e); }
   }
 };
@@ -1180,9 +1180,9 @@ addRitual = async function(text, called, cat, ci){
   renderMyRituals();
   renderCatPills(cat, ci);
   flashConfirm(called);
-  if(supabase && currentUser){
+  if(_sb && currentUser){
     try {
-      await supabase.from('rituals').insert({
+      await _sb.from('rituals').insert({
         user_id: currentUser.id, text, called, category: cat.name,
       });
     } catch(e){ console.warn('Could not save ritual:', e); }
@@ -1195,9 +1195,9 @@ removeRitual = async function(text){
   myRituals = myRituals.filter(r=>r.text!==text);
   renderMyRituals();
   RITUAL_CATEGORIES.forEach((cat,ci)=>renderCatPills(cat,ci));
-  if(supabase && currentUser){
+  if(_sb && currentUser){
     try {
-      await supabase.from('rituals').delete().eq('user_id', currentUser.id).eq('text', text);
+      await _sb.from('rituals').delete().eq('user_id', currentUser.id).eq('text', text);
     } catch(e){ console.warn('Could not delete ritual:', e); }
   }
 };
