@@ -235,7 +235,7 @@ textarea:focus{outline:none;border-color:var(--terra)}
       Tend to Your Needs
     </div>
     <div class="tagline">A simple path to self-care</div>
-    <button id="signout-btn" onclick="signOut()" style="display:none;position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text3);background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:8px" onmouseover="this.style.color='var(--text2)'" onmouseout="this.style.color='var(--text3)'">Sign out</button>
+    <button id="signout-btn" onclick="signOut()" style="display:none;position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--text3);background:none;border:none;cursor:pointer;padding:6px 10px;border-radius:8px;margin-top:2px" onmouseover="this.style.color='var(--text2)'" onmouseout="this.style.color='var(--text3)'">Sign out</button>
   </div>
   <div class="nav">
     <button class="nav-btn active" onclick="showTab('discover',this)">Discover</button>
@@ -249,7 +249,7 @@ textarea:focus{outline:none;border-color:var(--terra)}
   <div id="tab-discover" class="pad">
     <p class="heading">Begin here.</p>
     <p class="subtext">A moment to turn inward. Choose what calls to you.</p>
-    <div style="background:var(--cream2);border-radius:12px;padding:11px 14px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px">Tend to Your Needs helps you trace how you're feeling to what you actually need — then builds a gentle plan to tend to it.</div>
+    <div id="orientation-box" style="background:var(--cream2);border-radius:12px;padding:11px 14px;font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:18px">Tend to Your Needs helps you trace how you're feeling to what you actually need — then builds a gentle plan to tend to it.</div>
     <div class="discover-choice">
       <div class="choice-card" onclick="startWheel()">
         <div class="choice-icon" style="background:var(--terra-light)">
@@ -425,7 +425,13 @@ const ACTIVITIES={
   'Presence':[{t:'Put your phone in another room for one hour',c:'Presence is hard with a pocket full of interruptions'},{t:'Do one thing today and only that thing',c:'Presence is single-tasking'}],
   'Warmth':[{t:'Reach out to someone who makes you feel warm just thinking of them',c:'Some people are warmth — go toward them'},{t:'Do something kind for someone without being asked',c:'Giving warmth generates it'}],
   'Joy':[{t:'Do one thing today purely because it brings you joy',c:'Joy has no side effects — it just needs permission'},{t:'Let yourself laugh — seek out what makes you laugh',c:'Laughter is joy\'s most physical form'}],
-  'Stimulation':[{t:'Learn about something completely outside your usual domain',c:'Novelty is the most reliable form of stimulation'},{t:'Go somewhere new — even just a street you haven\'t walked',c:'New environments wake the brain up'}],
+  'Stimulation':[
+    {t:'Learn about something completely outside your usual domain',c:'Novelty is the most reliable form of stimulation'},
+    {t:'Go somewhere new — even just a street you have never walked',c:'New environments wake the brain up'},
+    {t:'Watch a documentary on something you know nothing about',c:'Passive novelty still feeds a starved mind'},
+    {t:'Pick up something with your hands — draw, build, cook something new',c:'Physical novelty engages differently from screen-based stimulation'},
+    {t:'Call someone you find genuinely interesting and ask them something real',c:'Other minds are one of the richest sources of stimulation'},
+  ],
   'Freedom':[{t:'Do one thing today chosen entirely for yourself',c:'Freedom is felt in the choosing'},{t:'Spend time in nature — space creates a felt sense of freedom',c:'Open landscapes are physiologically freeing'}],
   'default':[{t:'Take a slow walk outside without your phone',c:'Movement and nature both restore'},{t:'Write freely for 10 minutes without stopping',c:'Uncensored writing clears the inner weather'},{t:'Rest without guilt — allow yourself to simply be',c:'Permission to stop is its own kind of care'},{t:'Do one genuinely kind thing for yourself today',c:'Self-care in the smallest possible form'}],
 };
@@ -447,6 +453,9 @@ function enterApp(){
   renderRitualCategories();
   const btn = document.getElementById('signout-btn');
   if(btn) btn.style.display = currentUser ? 'block' : 'none';
+  // Hide orientation box for returning users who have saved plans
+  const box = document.getElementById('orientation-box');
+  if(box && appState.savedPlans.length > 0) box.style.display = 'none';
 }
 function showTab(id,btn){
   ['discover','need','plan','rituals','saved'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===id?'block':'none';});
@@ -515,6 +524,19 @@ function getClosestFeelings(normX, normY, count){
     .map((f,i)=>({...f, _i:i, dist: Math.sqrt((f.x-normX)**2 + (f.y-normY)**2)}))
     .sort((a,b)=>a.dist-b.dist)
     .slice(0,count);
+}
+
+function getClosestFeelingsFiltered(normX, normY, primaryIsPositive, count){
+  // Primary is closest overall; alternatives must share the same emotional tone
+  const all = COMPASS_FEELINGS
+    .map((f,i)=>({...f, _i:i, dist: Math.sqrt((f.x-normX)**2 + (f.y-normY)**2)}))
+    .sort((a,b)=>a.dist-b.dist);
+  const primary = all[0];
+  const alts = all
+    .slice(1)
+    .filter(f => (f.positive||false) === (primary.positive||false))
+    .slice(0, count - 1);
+  return [primary, ...alts];
 }
 
 // ── DISCOVER ──────────────────────────────────────────────────────────────────
@@ -605,7 +627,7 @@ function initCompass(){
 function showCompassResult(normX, normY, q){
   const result=document.getElementById('compass-result');
   if(!result)return;
-  const closest=getClosestFeelings(normX, normY, 4);
+  const closest=getClosestFeelingsFiltered(normX, normY, null, 4);
   const primary=closest[0];
   const alts=closest.slice(1);
   const ctx=QUADRANT_CONTEXT[q];
@@ -806,7 +828,7 @@ function buildPlan(){
   const calledToward=myRituals.filter(r=>r.called);
   // Build ritual-sourced activities
   const ritualActs=buildRitualActivities(tended,calledToward,appState.need);
-  const ritualBanner=tended.length||calledToward.length
+  const ritualBanner=ritualActs.length
     ?`<div style="background:var(--gold-light);border:1px solid var(--gold-mid);border-radius:12px;padding:11px 14px;margin-bottom:6px;font-size:12px;color:var(--brown);line-height:1.6"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:4px"><path d="M6 1L7.2 3.8H10L7.8 5.5L8.6 8.5L6 6.8L3.4 8.5L4.2 5.5L2 3.8H4.8L6 1Z" fill="var(--gold)"/></svg>Woven from your rituals</div>
       <div id="ritual-acts" style="margin-bottom:16px"></div>`
     :'';
@@ -1147,7 +1169,7 @@ async function signInWithGoogle(){
   }
   const {error} = await _sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.origin }
+    options: { redirectTo: 'https://tendtoyourneeds.com' }
   });
   if(error) { console.error(error); enterApp(); }
 }
