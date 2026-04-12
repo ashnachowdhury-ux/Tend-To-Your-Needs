@@ -143,6 +143,14 @@ textarea:focus{outline:none;border-color:var(--terra)}
 .cal-strip{border-top:1px solid var(--border);padding-top:11px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .cal-note{font-size:12px;color:var(--text3)}
 
+/* DAY SCHEDULE */
+.day-slot{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px}
+.day-slot-head{display:flex;align-items:center;gap:10px;padding:11px 14px}
+.day-slot-items{padding:8px 10px 4px}
+.day-slot-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--border);border-radius:10px;margin-bottom:6px;background:#fff;cursor:pointer;transition:all .12s}
+.day-slot-item:hover{border-color:var(--border2);background:var(--sand-light)}
+.day-slot-empty{font-size:12px;color:var(--text3);font-style:italic;padding:8px 4px 4px}
+
 /* STEP DOTS */
 .step-dots{display:flex;gap:7px;justify-content:center;margin-bottom:18px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--border2);transition:all .2s}
@@ -443,6 +451,7 @@ let appState={
 
 // Rituals state
 let myRituals=[]; // {text, called, color, stroke, tc}
+let daySlots=null; // {morning:[], midday:[], evening:[]}
 let _sb=null;
 let currentUser=null;
 
@@ -850,7 +859,10 @@ function buildPlan(){
     <div id="ai-acts" style="margin-top:10px"></div>
     <div id="plan-footer" style="display:none;margin-top:18px" class="footer">
       <span style="font-size:13px;color:var(--text3)" id="plan-count">0 gathered</span>
-      <button class="btn btn-terra" onclick="savePlan()">Gather into my plans →</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" onclick="savePlan()" style="font-size:12px">Save</button>
+        <button class="btn btn-terra" onclick="showDailySchedule()">Plan my day →</button>
+      </div>
     </div>`;
   if(ritualActs.length) renderPlanActs(ritualActs,'ritual-acts',true);
   renderPlanActs(acts,'plan-acts',false);
@@ -932,6 +944,122 @@ async function getAISuggestions(){
     area.innerHTML=`<p style="font-size:13px;color:var(--terra)">Couldn't load suggestions right now — the activities above are a great place to start.</p>`;
     btn.textContent='Try again';btn.disabled=false;
   }
+}
+
+// ── DAILY SCHEDULE ────────────────────────────────────────────────────────────
+const DAY_SLOT_DEFS=[
+  {key:'morning',label:'Morning',time:'9:00 AM',
+   headBg:'var(--gold-light)',border:'var(--gold-mid)',tc:'var(--gold)',
+   icon:'<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="4" stroke="var(--gold)" stroke-width="1.5"/><path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.9 4.9l1.4 1.4M13.7 13.7l1.4 1.4M4.9 15.1l1.4-1.4M13.7 6.3l1.4-1.4" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"/></svg>'},
+  {key:'midday',label:'Midday',time:'12:30 PM',
+   headBg:'var(--terra-light)',border:'var(--terra-mid)',tc:'var(--terra)',
+   icon:'<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="var(--terra)" stroke-width="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2" stroke="var(--terra)" stroke-width="1.5" stroke-linecap="round"/></svg>'},
+  {key:'evening',label:'Evening',time:'7:00 PM',
+   headBg:'var(--sage-light)',border:'var(--sage-mid)',tc:'var(--sage)',
+   icon:'<svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M17 13A8 8 0 017 3a8 8 0 000 14 8 8 0 0010-4z" stroke="var(--sage)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
+];
+
+function showDailySchedule(){
+  if(!appState.planItems.length)return;
+  // Auto-assign each activity to a time slot
+  const slots={morning:[],midday:[],evening:[]};
+  appState.planItems.forEach(item=>{
+    const key=suggestTime(item);
+    if(key==='morning'||key==='weekend')slots.morning.push(item);
+    else if(key==='lunch')slots.midday.push(item);
+    else if(key==='evening')slots.evening.push(item);
+    else slots.morning.push(item);
+  });
+  daySlots=slots;
+  document.getElementById('plan-content').innerHTML=`
+    <div style="margin-bottom:16px">
+      <button class="btn-ghost" onclick="backFromDailySchedule()">← Back to activities</button>
+    </div>
+    <p class="heading">Your day, tended.</p>
+    <p class="subtext">Here's how your practices might sit in the day. Tap any activity to move it to the next time.</p>
+    <div id="day-schedule-container"></div>
+    <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+      <button class="gcal-btn" style="justify-content:center;width:100%;border-radius:12px;padding:12px;font-size:14px" onclick="scheduleDayGCal()">
+        <svg width="15" height="15" viewBox="0 0 18 18" fill="none"><rect x="1" y="2" width="16" height="14" rx="2" fill="white" opacity=".9"/><rect x="1" y="6" width="16" height="2" fill="white" opacity=".5"/><rect x="4" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/><rect x="12" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/></svg>
+        Add all to Google Calendar
+      </button>
+      <button class="btn" style="justify-content:center;font-size:13px" onclick="savePlan()">Just save to My Plans</button>
+    </div>`;
+  renderDaySchedule();
+}
+
+function renderDaySchedule(){
+  const container=document.getElementById('day-schedule-container');
+  if(!container)return;
+  container.innerHTML='';
+  DAY_SLOT_DEFS.forEach(slot=>{
+    const div=document.createElement('div');
+    div.className='day-slot';
+    div.style.borderColor=slot.border;
+    div.innerHTML=`
+      <div class="day-slot-head" style="background:${slot.headBg};border-bottom:1px solid ${slot.border}">
+        ${slot.icon}
+        <div>
+          <div style="font-size:13px;font-weight:500;color:${slot.tc}">${slot.label}</div>
+          <div style="font-size:11px;color:var(--text3)">${slot.time}</div>
+        </div>
+      </div>
+      <div class="day-slot-items" id="slot-items-${slot.key}"></div>`;
+    container.appendChild(div);
+    renderSlotItems(slot.key);
+  });
+}
+
+function renderSlotItems(key){
+  const div=document.getElementById('slot-items-'+key);
+  if(!div)return;
+  const items=(daySlots&&daySlots[key])||[];
+  if(!items.length){
+    div.innerHTML='<p class="day-slot-empty">Nothing here — tap an activity above to move it</p>';
+    return;
+  }
+  div.innerHTML='';
+  items.forEach(item=>{
+    const card=document.createElement('div');
+    card.className='day-slot-item';
+    card.innerHTML=`<div style="flex:1;font-size:13px;color:var(--text);line-height:1.4">${item}</div><span style="font-size:10px;color:var(--text3);flex-shrink:0">tap to move →</span>`;
+    card.onclick=()=>moveToNextSlot(item,key);
+    div.appendChild(card);
+  });
+}
+
+function moveToNextSlot(item,currentKey){
+  const keys=DAY_SLOT_DEFS.map(s=>s.key);
+  const nextKey=keys[(keys.indexOf(currentKey)+1)%keys.length];
+  daySlots[currentKey]=(daySlots[currentKey]||[]).filter(i=>i!==item);
+  if(!daySlots[nextKey])daySlots[nextKey]=[];
+  daySlots[nextKey].push(item);
+  DAY_SLOT_DEFS.forEach(s=>renderSlotItems(s.key));
+}
+
+function scheduleDayGCal(){
+  if(!daySlots)return;
+  const tomorrow=new Date();tomorrow.setDate(tomorrow.getDate()+1);
+  const times={morning:{h:9,m:0,dur:60},midday:{h:12,m:30,dur:30},evening:{h:19,m:0,dur:60}};
+  DAY_SLOT_DEFS.forEach(slotDef=>{
+    const items=(daySlots[slotDef.key]||[]);
+    if(!items.length)return;
+    const t=times[slotDef.key];
+    const d=new Date(tomorrow);d.setHours(t.h,t.m,0,0);
+    const end=new Date(d.getTime()+t.dur*60000);
+    const params=new URLSearchParams({action:'TEMPLATE',
+      text:`Tend · ${appState.need} — ${slotDef.label}`,
+      dates:`${toGCal(d)}/${toGCal(end)}`,
+      details:`Tending to your need for ${(appState.need||'').toLowerCase()}.\n\n${items.map((a,i)=>`${i+1}. ${a}`).join('\n')}\n\nScheduled with Tend to Your Needs.`});
+    window.open('https://calendar.google.com/calendar/render?'+params.toString(),'_blank');
+  });
+  savePlan();
+}
+
+function backFromDailySchedule(){
+  const allItems=Object.values(daySlots||{}).flat();
+  buildPlan();
+  allItems.forEach(item=>toggleAct(item));
 }
 
 function savePlan(){
