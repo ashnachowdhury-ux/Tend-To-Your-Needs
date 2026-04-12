@@ -1,6 +1,7 @@
 {
   "functions": {
     "api/suggest.js": { "memory": 128, "maxDuration": 15 },
+    "api/schedule.js": { "memory": 128, "maxDuration": 15 },
     "api/config.js": { "memory": 128, "maxDuration": 5 }
   }
 }

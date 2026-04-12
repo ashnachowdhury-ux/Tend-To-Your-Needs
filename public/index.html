@@ -173,6 +173,17 @@ textarea:focus{outline:none;border-color:var(--terra)}
 .suggestion-pill:hover{transform:scale(1.03)}
 .suggestion-pill.added{opacity:.38;cursor:default;transform:none}
 
+/* MY DAY */
+.tl-wrap{position:relative;padding-left:20px;margin-left:6px}
+.tl-line{position:absolute;left:4px;top:0;bottom:0;width:1px;background:var(--border);border-radius:1px}
+.tl-item{position:relative;margin-bottom:12px}
+.tl-dot{position:absolute;left:-19px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--sage);border:2px solid var(--cream)}
+.tl-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.tl-time{font-size:10px;font-weight:500;letter-spacing:.08em;color:var(--text3);text-transform:uppercase;margin-bottom:4px}
+.tl-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;line-height:1.4}
+.tl-why{font-size:12px;color:var(--text3);font-style:italic;line-height:1.5;margin-bottom:6px}
+.tl-dur{display:inline-block;font-size:11px;font-weight:500;color:var(--sage);background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:7px;padding:2px 8px}
+
 @media(max-width:400px){.discover-choice{grid-template-columns:1fr}.splash-wordmark{font-size:26px}}
 </style>
 </head>
@@ -241,6 +252,7 @@ textarea:focus{outline:none;border-color:var(--terra)}
     <button class="nav-btn active" onclick="showTab('discover',this)">Discover</button>
     <button class="nav-btn" onclick="showTab('need',this)" title="Your identified need">My need</button>
     <button class="nav-btn" onclick="showTab('plan',this)" title="Practices for your need">My plan</button>
+    <button class="nav-btn" onclick="showTab('day',this)" title="A gentle shape for your day">My day</button>
     <button class="nav-btn" onclick="showTab('rituals',this)">Rituals</button>
     <button class="nav-btn" onclick="showTab('saved',this)">Saved</button>
   </div>
@@ -283,6 +295,16 @@ textarea:focus{outline:none;border-color:var(--terra)}
     <div id="plan-content">
       <div class="empty-state"><p>Once you've named what's asking to be tended, your path forward will appear here.</p>
         <button class="btn btn-sage" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button></div>
+    </div>
+  </div>
+
+  <!-- MY DAY -->
+  <div id="tab-day" class="pad" style="display:none">
+    <div id="day-content">
+      <div class="empty-state">
+        <p>Once you've named what you're tending to, your day can take shape around it.</p>
+        <button class="btn btn-terra" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button>
+      </div>
     </div>
   </div>
 
@@ -443,6 +465,7 @@ let appState={
 
 // Rituals state
 let myRituals=[]; // {text, called, color, stroke, tc}
+let daySchedule=null;
 let _sb=null;
 let currentUser=null;
 
@@ -458,11 +481,12 @@ function enterApp(){
   if(box && appState.savedPlans.length > 0) box.style.display = 'none';
 }
 function showTab(id,btn){
-  ['discover','need','plan','rituals','saved'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===id?'block':'none';});
+  ['discover','need','plan','day','rituals','saved'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===id?'block':'none';});
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  else{const idx=['discover','need','plan','rituals','saved'].indexOf(id);const btns=document.querySelectorAll('.nav-btn');if(btns[idx])btns[idx].classList.add('active');}
+  else{const idx=['discover','need','plan','day','rituals','saved'].indexOf(id);const btns=document.querySelectorAll('.nav-btn');if(btns[idx])btns[idx].classList.add('active');}
   if(id==='saved')renderSaved();
+  if(id==='day')renderDayTab();
 }
 
 // ── COMPASS DATA ──────────────────────────────────────────────────────────────
@@ -720,7 +744,7 @@ function showLifeResults(){
 }
 
 // ── NEED ──────────────────────────────────────────────────────────────────────
-function goToNeedShortlist(need,desc){appState.need=need;appState.needDesc=desc;showNeedConfirm();}
+function goToNeedShortlist(need,desc){appState.need=need;appState.needDesc=desc;daySchedule=null;showNeedConfirm();}
 
 function showNeedConfirm(){
   showTab('need');setNeedDots(2);
@@ -811,7 +835,7 @@ async function submitTalk(area){
 
 function confirmFromTalk(){
   if(!appState.talkNeed)return;
-  appState.need=appState.talkNeed.name;appState.needDesc=appState.talkNeed.desc;showNeedConfirm();
+  appState.need=appState.talkNeed.name;appState.needDesc=appState.talkNeed.desc;daySchedule=null;showNeedConfirm();
 }
 
 function setNeedDots(step){
@@ -967,6 +991,98 @@ function showRitualOnboarding(){
       <button class="btn" onclick="document.getElementById('ritual-onboarding').remove()" style="font-size:12px;color:var(--text3);border-color:var(--border)">Maybe later</button>
     </div>`;
   list.parentElement.appendChild(banner);
+}
+
+// ── MY DAY ────────────────────────────────────────────────────────────────────
+function renderDayTab(){
+  const div=document.getElementById('day-content');
+  if(!div)return;
+  if(!appState.need){
+    div.innerHTML=`<div class="empty-state"><p>Once you've named what you're tending to, your day can take shape around it.</p><button class="btn btn-terra" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button></div>`;
+    return;
+  }
+  const todayStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  if(daySchedule){
+    _renderDaySchedule(daySchedule,todayStr);
+    return;
+  }
+  const itemPills=appState.planItems.length
+    ?`<div style="margin-bottom:18px"><p class="section-label" style="margin-bottom:7px">From your plan</p><div style="display:flex;flex-wrap:wrap;gap:6px">${appState.planItems.map(a=>`<span class="pe-pill">${a}</span>`).join('')}</div></div>`
+    :'';
+  div.innerHTML=`
+    <p class="heading">Your day, tended.</p>
+    <p class="subtext">A gentle shape for ${todayStr}.</p>
+    <div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:15px 17px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--sage);margin-bottom:3px">Tending to</div>
+      <div style="font-size:19px;font-weight:500;color:var(--text);margin-bottom:2px">${appState.need}</div>
+      ${appState.area?`<div style="font-size:12px;color:var(--text3)">${appState.area}</div>`:''}
+    </div>
+    ${itemPills}
+    <button id="day-gen-btn" class="btn btn-sage" style="width:100%;justify-content:center;padding:12px;font-size:14px" onclick="generateDayPlan()">Weave my day →</button>
+    <div id="day-result"></div>`;
+}
+
+async function generateDayPlan(){
+  const btn=document.getElementById('day-gen-btn');
+  const resultDiv=document.getElementById('day-result');
+  if(btn){btn.disabled=true;btn.textContent='Weaving your day...';}
+  if(resultDiv)resultDiv.innerHTML=`<p style="font-size:13px;color:var(--text3);padding:14px 0;text-align:center;font-style:italic">Tending to your schedule with care...</p>`;
+  try{
+    const tendedRituals=myRituals.filter(r=>!r.called).map(r=>r.text);
+    const calledRituals=myRituals.filter(r=>r.called).map(r=>r.text);
+    const res=await fetch('/api/schedule',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      need:appState.need,area:appState.area,feeling:appState.feeling,
+      planItems:appState.planItems,rituals:[...tendedRituals,...calledRituals],
+    })});
+    const data=await res.json();
+    if(!data.schedule)throw new Error('no schedule');
+    daySchedule=data.schedule;
+    const todayStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+    _renderDaySchedule(data.schedule,todayStr);
+  }catch(e){
+    if(resultDiv)resultDiv.innerHTML=`<p style="font-size:13px;color:var(--terra);padding:8px 0">Couldn't weave your schedule right now — please try again.</p>`;
+    if(btn){btn.disabled=false;btn.textContent='Weave my day →';}
+  }
+}
+
+function _renderDaySchedule(schedule,todayStr){
+  const div=document.getElementById('day-content');
+  if(!div)return;
+  if(!todayStr)todayStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  const items=schedule.map(slot=>`
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-time">${slot.time} · ${slot.timeRange}</div>
+        <div class="tl-title">${slot.title}</div>
+        <div class="tl-why">${slot.why}</div>
+        <div class="tl-dur">${slot.duration}</div>
+      </div>
+    </div>`).join('');
+  div.innerHTML=`
+    <p class="heading">Your day, tended.</p>
+    <p class="subtext">${todayStr}</p>
+    <div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:14px 17px;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--sage);margin-bottom:2px">Tending to</div>
+      <div style="font-size:18px;font-weight:500;color:var(--text)">${appState.need}</div>
+    </div>
+    <div class="tl-wrap"><div class="tl-line"></div>${items}</div>
+    <div class="divider"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-top:4px">
+      <button class="gcal-btn" onclick="scheduleDayToGCal()"><svg width="13" height="13" viewBox="0 0 18 18" fill="none"><rect x="1" y="2" width="16" height="14" rx="2" fill="white" opacity=".9"/><rect x="1" y="6" width="16" height="2" fill="white" opacity=".5"/><rect x="4" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/><rect x="12" y="1" width="2" height="3" rx="1" fill="white" opacity=".7"/></svg>Add day to Google Calendar</button>
+      <button class="btn-ghost" onclick="daySchedule=null;renderDayTab();setTimeout(generateDayPlan,50)">Refresh ↺</button>
+    </div>`;
+}
+
+function scheduleDayToGCal(){
+  if(!daySchedule||!daySchedule.length)return;
+  const d=new Date();d.setDate(d.getDate()+1);d.setHours(7,0,0,0);
+  const end=new Date(d);end.setHours(22,0,0,0);
+  const details=`A gentle day tending to your need for ${appState.need.toLowerCase()}.\n\n${
+    daySchedule.map(s=>`${s.time} (${s.timeRange}): ${s.title} — ${s.duration}`).join('\n')
+  }\n\nScheduled with Tend to Your Needs.`;
+  const params=new URLSearchParams({action:'TEMPLATE',text:`Tend to Your Needs · ${appState.need}`,dates:`${toGCal(d)}/${toGCal(end)}`,details});
+  window.open('https://calendar.google.com/calendar/render?'+params.toString(),'_blank');
 }
 
 // ── RITUALS ───────────────────────────────────────────────────────────────────
