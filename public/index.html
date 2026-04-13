@@ -1001,7 +1001,8 @@ function renderDayTab(){
     div.innerHTML=`<div class="empty-state"><p>Once you've named what you're tending to, your day can take shape around it.</p><button class="btn btn-terra" onclick="showTab('discover',document.querySelector('.nav-btn'))">Begin here →</button></div>`;
     return;
   }
-  const todayStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  const tmw=new Date();tmw.setDate(tmw.getDate()+1);
+  const todayStr=tmw.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
   if(daySchedule){
     _renderDaySchedule(daySchedule,todayStr);
     return;
@@ -1011,7 +1012,7 @@ function renderDayTab(){
     :'';
   div.innerHTML=`
     <p class="heading">Your day, tended.</p>
-    <p class="subtext">A gentle shape for ${todayStr}.</p>
+    <p class="subtext">A gentle shape for tomorrow — ${todayStr}.</p>
     <div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:15px 17px;margin-bottom:20px">
       <div style="font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--sage);margin-bottom:3px">Tending to</div>
       <div style="font-size:19px;font-weight:500;color:var(--text);margin-bottom:2px">${appState.need}</div>
@@ -1037,8 +1038,8 @@ async function generateDayPlan(){
     const data=await res.json();
     if(!data.schedule)throw new Error('no schedule');
     daySchedule=data.schedule;
-    const todayStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
-    _renderDaySchedule(data.schedule,todayStr);
+    const tmw2=new Date();tmw2.setDate(tmw2.getDate()+1);
+    _renderDaySchedule(data.schedule,tmw2.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'}));
   }catch(e){
     if(resultDiv)resultDiv.innerHTML=`<p style="font-size:13px;color:var(--terra);padding:8px 0">Couldn't weave your schedule right now — please try again.</p>`;
     if(btn){btn.disabled=false;btn.textContent='Weave my day →';}
@@ -1048,7 +1049,7 @@ async function generateDayPlan(){
 function _renderDaySchedule(schedule,todayStr){
   const div=document.getElementById('day-content');
   if(!div)return;
-  if(!todayStr)todayStr=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  if(!todayStr){const t=new Date();t.setDate(t.getDate()+1);todayStr=t.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});}
   const items=schedule.map(slot=>`
     <div class="tl-item">
       <div class="tl-dot"></div>
@@ -1061,7 +1062,7 @@ function _renderDaySchedule(schedule,todayStr){
     </div>`).join('');
   div.innerHTML=`
     <p class="heading">Your day, tended.</p>
-    <p class="subtext">${todayStr}</p>
+    <p class="subtext">Tomorrow — ${todayStr}</p>
     <div style="background:var(--sage-light);border:1px solid var(--sage-mid);border-radius:14px;padding:14px 17px;margin-bottom:20px">
       <div style="font-size:11px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--sage);margin-bottom:2px">Tending to</div>
       <div style="font-size:18px;font-weight:500;color:var(--text)">${appState.need}</div>
